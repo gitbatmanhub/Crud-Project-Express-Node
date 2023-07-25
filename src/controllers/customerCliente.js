@@ -7,7 +7,6 @@ controller.list= (req, res)=>{
       if(err){
         res.json(err)
       }
-
       console.log(previs)
       res.render('clientes', {
         data: previs
@@ -16,25 +15,9 @@ controller.list= (req, res)=>{
   })
 };
 
+
+
+
+
+
 module.exports=controller;
-
-
-
-("Hola", 1),
-("Hola", 2),
-("Hola", 3),
-("Hola", 4),
-("Hola", 5),
-("Hola", 6),
-("Hola", 7),
-("Hola", 8),
-("Hola", 9),
-("Hola", 10),
-("Hola", 11),
-("Hola", 12),
-("Hola", 13),
-("Hola", 14),
-("Hola", 15),
-("Hola", 16),
-("Hola", 17),
-("Hola", 18);
