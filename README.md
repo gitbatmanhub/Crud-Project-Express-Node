@@ -167,6 +167,7 @@ const router= express.Router();
 
 router.get('/', (req, res)=>{
     res.send("Holaaaa")
+    console.log("Server corriendo en el puerto: " + app.get('port'))
 })
 module.exports= router;
 ```
