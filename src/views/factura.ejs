@@ -1,0 +1,76 @@
+<%- include('partials/header.ejs') -%>
+
+<div class="px-4 py-1 my-2 text-center">
+    <lord-icon
+            src="https://cdn.lordicon.com/nocovwne.json"
+            trigger="loop"
+            delay="2000"
+            colors="primary:#121331,secondary:#08a88a"
+            style="width:250px;height:250px">
+    </lord-icon>
+
+    <h1 class="display-5 fw-bold text-body-emphasis">Factura Nr: <%= idFactura.id%></h1>
+    <div class="col-lg-6 mx-auto">
+        <!--<p class="lead mb-4">Tu visión en manos expertas: Claridad y estilo a través de nuestras lentes. En Optica Naida , cuidamos de tu mirada con la más alta calidad y tendencias vanguardistas. Descubre una nueva perspectiva y atrévete a brillar con nuestros servicios personalizados.-->
+            <br> ¡Vive la experiencia visual que mereces!</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarArmazon">Agregar Armazon</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">Agregar Marca Lentes</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipoLuna">Agregar Tipo Luna</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearFactura">Crear Factura</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="agregarArmazon" tabindex="-1" aria-labelledby="agregarArmazon" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Armazon a Factura</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/" class="needs-validation"   method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Marca Armazon</label>
+                        <select class="form-control" name="idMarca" id="" required>
+                            <option disabled selected value="">Elige una marca</option>
+                            <% for (const marca of marcas) { %>
+                                <option value="<%= marca.idMarca %>"><%= marca.nameMarca %></option>
+                            <% } %>
+
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Marca Armazon</label>
+                        <select class="form-control" name="idTamano" id="" required>
+                            <option value="">Selecciona un tamaño</option>
+                            <% for (const tamano of tamanos) { %>
+                                <option value="<%= tamano.idTamano %>"><%= tamano.tamano %></option>
+                            <% } %>
+                        </select>
+
+                        </select>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<%- include('partials/footer.ejs') -%>
+
+

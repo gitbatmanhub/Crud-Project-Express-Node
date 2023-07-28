@@ -2,15 +2,24 @@
 
 
 
-<div class="px-4 py-5 my-5 text-center">
-    <svg xmlns="http://www.w3.org/2000/svg" width="200"  fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
-        <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
-    </svg>
+<div class="px-4 py-1 my-2 text-center">
+    <lord-icon
+            src="https://cdn.lordicon.com/tyounuzx.json"
+            trigger="loop"
+            delay="2000"
+            colors="primary:#121331,secondary:#08a88a"
+            style="width:250px;height:250px">
+    </lord-icon>
     <h1 class="display-5 fw-bold text-body-emphasis">Optica Naida</h1>
     <div class="col-lg-6 mx-auto">
-        <!--<p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>-->
+        <p class="lead mb-4">Tu visión en manos expertas: Claridad y estilo a través de nuestras lentes. En Optica Naida , cuidamos de tu mirada con la más alta calidad y tendencias vanguardistas. Descubre una nueva perspectiva y atrévete a brillar con nuestros servicios personalizados.
+            <br> ¡Vive la experiencia visual que mereces!</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#agregarCliente">Agregar Cliente</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarCliente">Agregar Cliente</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">Agregar Marca Lentes</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipoLuna">Agregar Tipo Luna</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearFactura">Crear Factura</button>
+
         </div>
     </div>
 </div>
@@ -43,7 +52,79 @@
                         <input name="telefonoCliente" type="number" class="form-control" id="telefonoCliente" minlength="10" maxlength="10" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="agregarMarca" tabindex="-1" aria-labelledby="agregarMarca" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Marca Lentes</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/addLente" class="needs-validation" method="post">
+                    <div class="mb-3">
+                        <label for="nameMarca" class="form-label">Nombres Marca</label>
+                        <input type="text" name="nameMarca" class="form-control" id="nameMarca" aria-describedby="nameMarca" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="agregarTipoLuna" tabindex="-1" aria-labelledby="agregarTipoLuna" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Tipo Luna</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/addTipoLuna" class="needs-validation" method="post">
+                    <div class="mb-3">
+                        <label for="nameTipoluna" class="form-label">Nombres Tipo Luna</label>
+                        <input type="text" name="nameTipoluna" class="form-control" id="nameTipoluna" aria-describedby="nameTipoluna" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="crearFactura" tabindex="-1" aria-labelledby="crearFactura" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Crear Factura</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/addTipoLuna" class="needs-validation" method="post">
+                    <div class="mb-3">
+                        <label for="nameTipoluna" class="form-label">Escoge el cliente</label>
+                        <select class="form-control" name="idcliente" id="">
+                            <option value="null" selected disabled>Escoge al cliente</option>
+                            <% data.forEach(function(data) { %>
+                                <option value="<%= data.idCliente %>"><%=data.nombreCliente%></option>
+                            <% }); %>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+
+
+                    
                 </form>
             </div>
 
@@ -70,6 +151,7 @@
         </div>
     </div>
 </div>
+
 
 
 
