@@ -1,10 +1,14 @@
 const express = require('express');
 const router= express.Router();
-const customerController= require('../controllers/customerCliente')
+const {listClientesController, clienteController}= require('../controllers/customerCliente')
 
 
 
-router.get('/', customerController.list);
+router.get('/', listClientesController.list);
+
+router.post('/addCliente', clienteController.save);
+
+
 
 
 

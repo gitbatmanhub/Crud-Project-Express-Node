@@ -286,4 +286,12 @@ controller.list= (req, res)=>{
 
 `<%- include('partials/footer.ejs') -%>`
 
+## Creación de la BBDD
+
+Para el proyecto Lentes/Optica la bbdd es la siguiente
+
+
+
+
+
 

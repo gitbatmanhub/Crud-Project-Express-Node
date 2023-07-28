@@ -2,18 +2,78 @@
 
 
 
+<div class="px-4 py-5 my-5 text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="200"  fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+        <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+    </svg>
+    <h1 class="display-5 fw-bold text-body-emphasis">Optica Naida</h1>
+    <div class="col-lg-6 mx-auto">
+        <!--<p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>-->
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3" data-bs-toggle="modal" data-bs-target="#agregarCliente">Agregar Cliente</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="agregarCliente" tabindex="-1" aria-labelledby="agregarCliente" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/addCliente" class="needs-validation"   method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Nombres Cliente</label>
+                        <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" aria-describedby="nombreCliente" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidoCliente" class="form-label">Apellidos Cliente</label>
+                        <input type="text" name="apellidoCliente" class="form-control" id="apellidoCliente" aria-describedby="nombreCliente" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cedulaCliente" class="form-label">Nr de Cedula</label>
+                        <input type="number" name="cedulaCliente" class="form-control" id="cedulaCliente" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefonoCliente" class="form-label">Nr de Telefono</label>
+                        <input name="telefonoCliente" type="number" class="form-control" id="telefonoCliente" minlength="10" maxlength="10" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
-
-
+<div class="modal fade" id="agregarLuna" tabindex="-1" aria-labelledby="agregarLuna" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
 
 <%- include('partials/footer.ejs') -%>
-
-
-
 
