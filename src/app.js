@@ -40,4 +40,5 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.listen(app.get('port'), ()=>{
     console.log("Hola mundo ")
+    console.log("Server corriendo en el puerto: " + app.get('port'))
 });
