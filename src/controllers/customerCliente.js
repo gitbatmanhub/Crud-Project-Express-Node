@@ -1,7 +1,7 @@
 const listClientesController = {};
 listClientesController.list = (req, res) => {
     req.getConnection((err, conn) => {
-        conn.query('select * from cliente', (err, cliente) => {
+        conn.query('SELECT CONCAT(nombreCliente, \' \', apellidoCliente) AS nombreCliente FROM cliente;', (err, cliente) => {
             if (err) {
                 res.json(err)
             }
@@ -69,16 +69,21 @@ facturas.crear = (req, res) => {
 
                         conn.query('SELECT * FROM datosLunaFactura WHERE idFactura=?', [idFactura.id], (err, luna) => {
 
+                            conn.query('select * from datosClienteFactura where idFactura=?', [idFactura.id], (err, datos) => {
+                                //console.log(datos)
 
-                            // Renderizar los resultados en la vista factura
-                            res.render('factura', {
-                                idFactura: idFactura,
-                                marcas: marcas,
-                                tamanos: tamanos,
-                                armazon: armazon,
-                                tipoluna: tipoluna,
-                                luna: luna
 
+                                // Renderizar los resultados en la vista factura
+                                res.render('factura', {
+                                    idFactura: idFactura,
+                                    marcas: marcas,
+                                    tamanos: tamanos,
+                                    armazon: armazon,
+                                    tipoluna: tipoluna,
+                                    luna: luna,
+                                    datos: datos[0]
+
+                                });
                             });
                         });
                     });
@@ -170,7 +175,6 @@ agregarLuna.aggLuna = (req, res) => {
 }
 
 
-
 const deleteLuna = {};
 deleteLuna.deleteLu = (req, res) => {
     const {idLuna, idFactura} = req.body;
@@ -185,6 +189,15 @@ deleteLuna.deleteLu = (req, res) => {
 
 
 }
+const cerrarFactura={};
+cerrarFactura.close=(req, res)=>{
+    const {idFactura, totalFactura}=req.body;
+    req.getConnection((err, conn)=>{
+        conn.query('update factura set totalFactura=?,  idStatus=2 where idFactura=?', [totalFactura, idFactura], (err, rows)=>{
+            res.redirect('/factura/'+idFactura)
+        })
+    })
+}
 
 module.exports = {
     listClientesController,
@@ -196,5 +209,6 @@ module.exports = {
     aggArmazonFactura,
     deleteArmazon,
     agregarLuna,
-    deleteLuna
+    deleteLuna,
+    cerrarFactura
 };

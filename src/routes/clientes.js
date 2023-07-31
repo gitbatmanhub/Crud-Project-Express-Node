@@ -10,7 +10,8 @@ const {
     aggArmazonFactura,
     deleteArmazon,
     agregarLuna,
-    deleteLuna
+    deleteLuna,
+    cerrarFactura
 } = require('../controllers/customerCliente')
 
 
@@ -24,9 +25,11 @@ router.post('/addTipoLuna', addLuna.aggLu);
 router.get('/factura/:id', facturas.crear)
 router.post('/crearFactura', crearFactura.make);
 router.post('/agregarArmazon', aggArmazonFactura.aggAF );
-router.post('/deleteItemArmazon', deleteArmazon.deleteA )
-router.post('/agregarLuna', agregarLuna.aggLuna)
-router.post('/deleteItemLuna', deleteLuna.deleteLu)
+router.post('/deleteItemArmazon', deleteArmazon.deleteA );
+router.post('/agregarLuna', agregarLuna.aggLuna);
+router.post('/deleteItemLuna', deleteLuna.deleteLu);
+
+router.post('/cerrarFactura', cerrarFactura.close);
 
 
 module.exports = router;
