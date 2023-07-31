@@ -15,9 +15,8 @@
             <br> ¡Vive la experiencia visual que mereces!</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarArmazon">Agregar Armazon</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">Agregar Marca Lentes</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipoLuna">Agregar Tipo Luna</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearFactura">Crear Factura</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLunas">Agregar Lunas</button>
+
 
         </div>
     </div>
@@ -62,14 +61,45 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="agregarLunas" tabindex="-1" aria-labelledby="agregarLunas" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Lunas a Factura</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/agregarLuna" class="needs-validation"   method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Tipo de Luna</label>
+                        <select class="form-control" name="idTipoluna" id="" required>
+                            <option disabled selected value="">Elige un tipo de Luna</option>
+                            <% for (const tipolunas of tipoluna) { %>
+                                <option value="<%= tipolunas.idTipoLuna %>"><%= tipolunas.nameTipoluna %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" name="idFactura" value="<%= idFactura.id%>"/>
+                    </div>
 
 
 
-<table class="table">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<table class="table" id="tablaPrecios">
     <thead>
     <tr>
         <th scope="col">Item</th>
-        <th scope="col">Marca</th>
+        <th scope="col">Modelo</th>
         <th scope="col">Talla</th>
         <th scope="col">Tamaño</th>
         <th scope="col">Precio</th>
@@ -89,7 +119,7 @@
                 <td><%=armazon.nameMarca%></td>
                 <td><%=armazon.tamano%></td>
                 <td><%=armazon.talla%></td>
-                <td>$<%=armazon.precioArmazon%></td>
+                <td class="precio">$<%=armazon.precioArmazon%></td>
                 <td>
                     <form action="/deleteItemArmazon" method="post">
                         <input type="hidden" name="idArmazon" value="<%=armazon.idArmazon%>">
@@ -111,9 +141,65 @@
 
     <% }else { %>
         <!-- Si la data no existe, muestra este div -->
-        <div>No existen Datos</div>
+        <td colspan="5">Larry the Bird</td>
+
     <% } %>
 
+
+    <% if (luna) { %>
+        <!-- Si la data existe, muestra este div -->
+        <% luna.forEach(function(luna) { %>
+        <tr>
+            <td><%=luna.name%></td>
+            <td><%=luna.nameTipoluna%></td>
+            <td>--</td>
+            <td>--</td>
+            <td class="precio">$<%=luna.precio%></td>
+            <td>
+                <form action="/deleteItemLuna" method="post">
+                    <input type="hidden" name="idLuna" value="<%=luna.idLuna%>">
+                    <input type="hidden" name="idFactura" value="<%= idFactura.id%>">
+                    <button type="submit" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5
+a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg> </button>
+
+                </form>
+
+            </td>
+        </tr>
+        <% }); %>
+    <% } else { %>
+        <!-- Si la data no existe, muestra este div -->
+        <div>Contenido cuando la data no existe</div>
+    <% } %>
+
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Subtotal</td>
+        <td id="subtotal"></td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>IVA 12%</td>
+        <td id="masIva"></td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total a Pagar</td>
+        <td id="totalPagar"></td>
+
+    </tr>
 
     </tbody>
 </table>
@@ -134,3 +220,40 @@
 
     }
 </style>
+
+<script>
+
+    const precios = document.querySelectorAll('.precio');
+    const subtotal = document.getElementById('subtotal');
+    const subtotalMasIva = document.getElementById('masIva');
+    const totalApagar= document.getElementById('totalPagar');
+    let sumaSubtotal = 0;
+    let subTotalIva = 0;
+    let totalpagar =0;
+
+
+    for (let i = 0; i < precios.length; i++) {
+        let precioTexto = precios[i].innerHTML;
+        let precioSinDolar = precioTexto.replace('$', ''); // Eliminar el carácter "$"
+        let precioNumero = parseFloat(precioSinDolar); // Convertir el valor a número
+        sumaSubtotal += precioNumero; // Sumar al total
+
+    }
+    subtotal.innerText="$"+sumaSubtotal;
+    console.log("Suma subTotal"+ sumaSubtotal);
+    subTotalIvaDecimales=sumaSubtotal*0.12;
+    subTotalIva=subTotalIvaDecimales.toFixed(2)
+    subtotalMasIva.innerText="$"+subTotalIva;
+    const sub= parseFloat(sumaSubtotal)
+    const iva= parseFloat(subTotalIva)
+    console.log(sub+iva)
+    totalpagar= sub+iva;
+    totalApagar.innerText="$"+totalpagar;
+
+
+
+    console.log(sumaSubtotal); // La suma total de los valores sin el carácter "$"
+
+
+
+</script>

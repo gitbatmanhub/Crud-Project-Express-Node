@@ -65,15 +65,22 @@ facturas.crear = (req, res) => {
                 conn.query('SELECT * from datosArmazonFactura where idFactura=?', [idFactura.id], (err, armazon) => {
                     const Armazon = armazon;
                     //console.log(armazon);
+                    conn.query('SELECT * from tipoluna', (err, tipoluna) => {
+
+                        conn.query('SELECT * FROM datosLunaFactura WHERE idFactura=?', [idFactura.id], (err, luna) => {
 
 
-                    // Renderizar los resultados en la vista factura
-                    res.render('factura', {
-                        idFactura: idFactura,
-                        marcas: marcas,
-                        tamanos: tamanos,
-                        armazon: armazon
+                            // Renderizar los resultados en la vista factura
+                            res.render('factura', {
+                                idFactura: idFactura,
+                                marcas: marcas,
+                                tamanos: tamanos,
+                                armazon: armazon,
+                                tipoluna: tipoluna,
+                                luna: luna
 
+                            });
+                        });
                     });
                 });
             });
@@ -129,13 +136,46 @@ aggArmazonFactura.aggAF = (req, res) => {
 }
 
 
-
-
-const deleteArmazon={};
-deleteArmazon.deleteA =(req, res)=>{
-    const {idArmazon, idFactura}= req.body;
+const deleteArmazon = {};
+deleteArmazon.deleteA = (req, res) => {
+    const {idArmazon, idFactura} = req.body;
     req.getConnection((err, conn) => {
         conn.query('delete from armazon where idArmazon=?', [idArmazon], (err, rows) => {
+
+            res.redirect('/factura/' + idFactura);
+
+        })
+
+    })
+
+
+}
+
+
+const agregarLuna = {};
+agregarLuna.aggLuna = (req, res) => {
+    const {idTipoluna, idFactura} = req.body;
+    const dataLuna =
+        {
+            idTipoluna,
+            idFactura
+        };
+    req.getConnection((err, conn) => {
+
+        conn.query('insert into luna set ?', [dataLuna], (err, dataLuna) => {
+            console.log(err)
+            res.redirect('/factura/' + idFactura);
+        });
+    })
+}
+
+
+
+const deleteLuna = {};
+deleteLuna.deleteLu = (req, res) => {
+    const {idLuna, idFactura} = req.body;
+    req.getConnection((err, conn) => {
+        conn.query('delete from luna where idLuna=?', [idLuna], (err, rows) => {
 
             res.redirect('/factura/' + idFactura);
 
@@ -154,5 +194,7 @@ module.exports = {
     facturas,
     crearFactura,
     aggArmazonFactura,
-    deleteArmazon
+    deleteArmazon,
+    agregarLuna,
+    deleteLuna
 };
