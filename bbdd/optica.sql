@@ -52,7 +52,6 @@ create table armazon(
 
 
 
-alter table armazon add column idFactura
 alter table armazon add constraint fk_armazonTamano foreign key (idTamano) references tamano(idTamano);
 alter table armazon add constraint fk_armazonMarca foreign key (idMarca) references marca(idMarca);
 
@@ -147,6 +146,11 @@ values
     ("Lunas deportivas");
 
 
+
+alter table armazon add column name varchar(50) default "Armazon";
+select * from armazon;
+alter table luna add column idFactura int not null;
+alter table luna add constraint fk_ifFacturaLente foreign key(idFactura) references factura(idFactura);
 select * from tipoluna;
 select * from tamano;
 
@@ -155,3 +159,61 @@ select * from cliente where idCliente=8;
 insert into factura (idCliente)
 values (8),
        (4);
+
+select * from armazon where idFactura=13;
+select * from armazon;
+select * from marca;
+
+create view datosArmazonFactura as
+select armazon.name,
+       m.nameMarca,
+       t.tamano,
+       t.talla,
+       armazon.precioArmazon,
+       armazon.idFactura,
+       armazon.idArmazon
+from armazon
+         inner join tamano t on armazon.idTamano = t.idTamano
+         inner join marca m on armazon.idMarca = m.idMarca ;
+select * from armazon;
+
+alter table luna add column name varchar(50) default "Luna";
+select * from luna;
+alter table factura add column create_at timestamp default current_timestamp;
+
+
+create view datosLunaFactura as
+select luna.idLuna, luna.name, t.precio, t.nameTipoluna, luna.idFactura
+from luna
+         inner join tipoluna t on luna.idTipoLuna = t.idTipoLuna;
+
+select * from datosLunaFactura where idFactura=13;
+create view datosClienteFactura as
+select c.nombreCliente,
+       c.apellidoCliente,
+       c.cedulaCliente,
+       c.telefonoCliente,
+       factura.idFactura,
+       date_format(factura.create_at, "%d/%m/%Y") as Fecha,
+       factura.idStatus
+from factura
+         inner join cliente c on factura.idCliente = c.idCliente;
+select * from datosClienteFactura where idFactura=13;
+
+create table statusFactura(
+                              idStatus int not null primary key auto_increment,
+                              status varchar(10) not null
+);
+
+insert into statusFactura(status)
+values ("Abierta"),
+       ("Cerrada");
+select * from statusFactura;
+alter table factura add column idStatus int not null default 1;
+alter table factura add constraint fk_idFacturaStatus foreign key (idStatus) references statusFactura(idStatus);
+
+
+select * from factura where idFactura=21;
+select * from cliente;
+
+
