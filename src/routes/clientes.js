@@ -6,7 +6,9 @@ const {
     addLente,
     addLuna,
     facturas,
-    crearFactura
+    crearFactura,
+    aggArmazonFactura,
+    deleteArmazon
 } = require('../controllers/customerCliente')
 
 
@@ -19,6 +21,8 @@ router.post('/addTipoLuna', addLuna.aggLu);
 //Factura
 router.get('/factura/:id', facturas.crear)
 router.post('/crearFactura', crearFactura.make);
+router.post('/agregarArmazon', aggArmazonFactura.aggAF );
+router.post('/deleteItemArmazon', deleteArmazon.deleteA )
 
 
 module.exports = router;
