@@ -29,7 +29,7 @@ app.use(myConnection(mysql, {
 
 
 //Routes
-
+app.use(express.urlencoded({extended:false}))
 app.use('/', customerRoutes)
 
 

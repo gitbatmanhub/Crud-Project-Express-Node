@@ -1,0 +1,140 @@
+<%- include('partials/header.ejs') -%>
+
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <!--<img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">-->
+            <lottie-player src="https://lottie.host/21abfbe5-93b2-4584-a426-6acdff523415/n8SW3B4euB.json" background="transparent" speed="1" style="width: 380px; margin: 0 auto" loop autoplay></lottie-player>
+
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Factura Nr <%= idFactura %> </h1>
+            <p class="lead">¡Bienvenido/a a la Maratón que te llevará más allá de tus metas!</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="button"  data-bs-toggle="modal" data-bs-target="#makeentrada" class="btn btn-primary btn-lg ">Agregar Entradas</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="makeentrada" tabindex="-1" aria-labelledby="makeentrada" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Crear Entrada</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/entradaFactura"  method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Escoge el tipo de Entrada</label>
+                        <select name="idCategoria" class="form-control" id="">
+                            <option disabled selected>Escoge el tipo de Entrada</option>
+                            <% for (const categorias of categoria) { %>
+                                <option value="<%= categorias.idCategoria %>"><%= categorias.nameCategoria %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidoCliente" class="form-label">Escoge la categoria</label>
+                        <select name="idTipoCarrera" id="" class="form-control">
+                            <option value="" selected disabled>Escoge la categoria</option>
+                            <% for (const tipos of tipo) { %>
+                                <option value="<%= tipos.idTipoCarrera %>"><%= tipos.nameTipoCarrera %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <input type="hidden" name="idFactura" value="<%= idFactura %>">
+
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<table class="table" id="tablaPrecios">
+    <thead>
+    <tr>
+
+        <th scope="col">Categoria</th>
+        <th scope="col">Tipo Carrera</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% if (datos) { %>
+        <!-- Si la data existe, muestra este div -->
+
+
+
+        <% datos.forEach(function(datos) { %>
+            <tr>
+                <td><%= datos.nameCategoria %></td>
+                <td><%= datos.nameTipoCarrera %></td>
+                <td><%= datos.Fecha %></td>
+                <td class="precio">$<%= datos.precioEntrada %></td>
+                <td>
+                    <form action="/deleteItemArmazon" method="post">
+                        <button type="submit" class="btn btn-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            </svg>
+                        </button>
+
+                    </form>
+
+                </td>
+            </tr>
+        <% }); %>
+
+    <% }else { %>
+
+    <% } %>
+
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Subtotal</td>
+        <td id="subtotal"></td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>IVA 12%</td>
+        <td id="masIva"></td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Total a Pagar</td>
+        <td id="totalPagar"></td>
+
+    </tr>
+
+    </tbody>
+</table>
+
+
+
+
+
+
+<%- include('partials/footer.ejs') -%>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>

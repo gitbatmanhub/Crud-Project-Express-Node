@@ -1,0 +1,94 @@
+<%- include('partials/header.ejs') -%>
+
+
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <!--<img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">-->
+            <lottie-player src="https://lottie.host/21abfbe5-93b2-4584-a426-6acdff523415/n8SW3B4euB.json" background="transparent" speed="1" style="width: 380px; margin: 0 auto" loop autoplay></lottie-player>
+
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Maraton</h1>
+            <p class="lead">Corre, Supera y Celebra: ¡La Aventura Comienza en Nuestra Maratón! Únete a la emoción de desafiar tus límites, rodeado de compañeros apasionados por el running. ¡Prepárate para vivir una experiencia única llena de pasión y logros!<br> ¡Bienvenido/a a la Maratón que te llevará más allá de tus metas!</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="button"  data-bs-toggle="modal" data-bs-target="#crearentrada" class="btn btn-primary btn-lg ">Vender Entrada</button>
+                <button type="button"  data-bs-toggle="modal" data-bs-target="#" class="btn btn-outline-secondary ">Ver Entradas</button>
+                <button type="button"  data-bs-toggle="modal" data-bs-target="#agregarCliente" class="btn btn-outline-secondary ">Registrar Usuarios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="agregarCliente" tabindex="-1" aria-labelledby="agregarCliente" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/insertarcliente"  method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Nombres Cliente</label>
+                        <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidoCliente" class="form-label">Apellidos Cliente</label>
+                        <input type="text" name="apellidoCliente" class="form-control" id="apellidoCliente"  required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cedulaCliente" class="form-label">Nr de Cedula</label>
+                        <input type="number" minlength="5" name="cedulaCliente" class="form-control" id="cedulaCliente" required>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="crearentrada" tabindex="-1" aria-labelledby="crearentrada" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Crear Entrada</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/crearfactura"  method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Nombres Cliente</label>
+                        <select class="form-control" name="idCliente" id="">
+                            <option selected disabled>Escoge un usuario</option>
+                            <% for (const clientes of categorias) { %>
+                                <option value="<%= clientes.idCliente %>"><%= clientes.nombreCompleto %></option>
+                            <% } %>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<%- include('partials/footer.ejs') -%>
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+
+

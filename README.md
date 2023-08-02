@@ -149,7 +149,7 @@ module.exports= router;
 
 ### Controladores
 - Creamos una carpeta con nombre "controladores"
-- Creamos un archivo que identifique los controladores para las rutas que estamos manejando ejm "customerCliente.js"
+- Creamos un archivo que identifique los controladores para las rutas que estamos manejando ejm "datosMaraton.js"
 - Dentro del archivo podemos crear varios metodos, ejm:
 ```
 const controller = {};
