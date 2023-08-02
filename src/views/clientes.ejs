@@ -16,7 +16,7 @@
             <br> ¡Vive la experiencia visual que mereces!</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarCliente">Agregar Cliente</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">Agregar Marca Lentes</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">Agregar Marca Armazon</button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipoLuna">Agregar Tipo Luna</button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearFactura">Crear Factura</button>
 
@@ -34,7 +34,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/addCliente" class="needs-validation"   method="post">
+                <form action="/addCliente"  class="needs-validation"   method="post">
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Nombres Cliente</label>
                         <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" aria-describedby="nombreCliente" required>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="cedulaCliente" class="form-label">Nr de Cedula</label>
-                        <input type="number" name="cedulaCliente" class="form-control" id="cedulaCliente" required>
+                        <input type="number" minlength="5" name="cedulaCliente" class="form-control" id="cedulaCliente" required>
                     </div>
                     <div class="mb-3">
                         <label for="telefonoCliente" class="form-label">Nr de Telefono</label>
@@ -63,7 +63,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Marca Lentes</h1>
+                <h1 class="modal-title fs-5" id="agregarCliente">Agregar Marca Armazon</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -71,6 +71,10 @@
                     <div class="mb-3">
                         <label for="nameMarca" class="form-label">Nombres Marca</label>
                         <input type="text" name="nameMarca" class="form-control" id="nameMarca" aria-describedby="nameMarca" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" step="0.01" name="precio" class="form-control" id="precio" aria-describedby="nameMarca" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>
@@ -92,6 +96,10 @@
                     <div class="mb-3">
                         <label for="nameTipoluna" class="form-label">Nombres Tipo Luna</label>
                         <input type="text" name="nameTipoluna" class="form-control" id="nameTipoluna" aria-describedby="nameTipoluna" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" step="0.01" name="precio" class="form-control" id="precio" aria-describedby="nameMarca" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>

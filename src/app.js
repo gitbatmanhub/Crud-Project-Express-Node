@@ -23,7 +23,7 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     host: 'localhost',
     user: 'root',
-    password: 'admin123',
+    password: 'admin1223',
     port: 3306,
     database: 'optica'
 }, 'single'))

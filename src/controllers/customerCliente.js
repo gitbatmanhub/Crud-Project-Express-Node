@@ -26,10 +26,14 @@ clienteController.save = (req, res) => {
 
 const addLente = {};
 addLente.aggLe = (req, res) => {
-    const datalente = req.body;
+    const {nameMarca, precio} = req.body;
+    const datalente={
+        nameMarca,
+        precioIndividual: precio
+    }
     req.getConnection((err, conn) => {
         conn.query('insert into marca set ?', [datalente], (err, marca) => {
-            //console.log(err);
+            console.log(err);
             res.redirect('/');
         })
     })
@@ -38,7 +42,11 @@ addLente.aggLe = (req, res) => {
 
 const addLuna = {};
 addLuna.aggLu = (req, res) => {
-    const dataLuna = req.body;
+    const {nameTipoluna, precio} = req.body;
+    const dataLuna={
+      nameTipoluna,
+      precio
+    };
     req.getConnection((err, conn) => {
         conn.query('insert into tipoluna set ?', [dataLuna], (err, marca) => {
             //console.log(err);
@@ -235,6 +243,20 @@ cerrarFactura.close = (req, res) => {
     })
 }
 
+
+
+
+
+const listarFacturas={};
+listarFacturas.list=(req, res)=>{
+    req.getConnection((err, conn)=>{
+        conn.query('select * from listFacturas', (err, listFacturas)=>{
+            res.render('facturas', {
+                listFacturas
+            })
+        })
+    })
+}
 module.exports = {
     listClientesController,
     clienteController,
@@ -246,5 +268,7 @@ module.exports = {
     deleteArmazon,
     agregarLuna,
     deleteLuna,
-    cerrarFactura
+    cerrarFactura,
+    listarFacturas
 };
+

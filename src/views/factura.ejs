@@ -21,9 +21,7 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLunas">Agregar
                 Lunas
             </button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cerrarFactura">Cerrar
-                Factura
-            </button>
+
         </div>
     </div>
 </div>
@@ -102,7 +100,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="agregarCliente">Cerrar Factura</h1>
+                <h1 class="modal-title fs-5" id="cerrarFactura">Cerrar Factura</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -265,6 +263,11 @@ a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1
 
     </tbody>
 </table>
+<div class="container m-5 p-6" style="text-align: center">
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cerrarFactura">Cerrar
+        Factura
+    </button>
+</div>
 
 
 <%- include('partials/footer.ejs') -%>
@@ -284,52 +287,64 @@ a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1
 </style>
 
 <script>
-
-    const precios = document.querySelectorAll('.precio');
-    const subtotal = document.getElementById('subtotal');
-    const subtotalMasIva = document.getElementById('masIva');
-    const totalApagar = document.getElementById('totalPagar');
-    const inputTotalFactura = document.getElementById('totalFactura');
-    let sumaSubtotal = 0;
-    let subTotalIva = 0;
-    let totalpagar = 0;
-
-
-    for (let i = 0; i < precios.length; i++) {
-        let precioTexto = precios[i].innerHTML;
-        let precioSinDolar = precioTexto.replace('$', ''); // Eliminar el carácter "$"
-        let precioNumero = parseFloat(precioSinDolar); // Convertir el valor a número
-        sumaSubtotal += precioNumero; // Sumar al total
-
-    }
-    subtotal.innerText = "$" + sumaSubtotal.toFixed(2);
-    //console.log("Suma subTotal"+ sumaSubtotal);
-    subTotalIvaDecimales = sumaSubtotal * 0.12;
-    subTotalIva = subTotalIvaDecimales.toFixed(2);
-    subtotalMasIva.innerText = "$" + subTotalIva;
-    const sub = parseFloat(sumaSubtotal)
-    const iva = parseFloat(subTotalIva)
-    //console.log(sub+iva)
-    totalpagar = sub + iva;
-    totalApagar.innerText = "$" + totalpagar.toFixed(2);
-    totalpagar=parseFloat(totalpagar.toFixed(2))
-    //console.log(totalpagar)
-    inputTotalFactura.value = parseFloat(totalpagar);
-
-
-    //console.log(sumaSubtotal); // La suma total de los valores sin el carácter "$"
-    const status= document.getElementById('idStatus');
-    const Status= parseInt(status.value)
-    console.log(Status);
+    window.onload= function (){
 
 
 
-    const botonones= document.querySelectorAll('.btn');
-    console.log(botonones);
-    if (Status == 2){
-        for (let i = 0; i < botonones.length; i++) {
-            botonones[i].style.display = "none";
+        const precios = document.querySelectorAll('.precio');
+        const subtotal = document.getElementById('subtotal');
+        const subtotalMasIva = document.getElementById('masIva');
+        const totalApagar = document.getElementById('totalPagar');
+        const inputTotalFactura = document.getElementById('totalFactura');
+        let sumaSubtotal = 0;
+        let subTotalIva = 0;
+        let totalpagar = 0;
+
+
+        for (let i = 0; i < precios.length; i++) {
+            let precioTexto = precios[i].innerHTML;
+            let precioSinDolar = precioTexto.replace('$', ''); // Eliminar el carácter "$"
+            let precioNumero = parseFloat(precioSinDolar); // Convertir el valor a número
+            sumaSubtotal += precioNumero; // Sumar al total
+
         }
+        subtotal.innerText = "$" + sumaSubtotal.toFixed(2);
+        //console.log("Suma subTotal"+ sumaSubtotal);
+        subTotalIvaDecimales = sumaSubtotal * 0.12;
+        subTotalIva = subTotalIvaDecimales.toFixed(2);
+        subtotalMasIva.innerText = "$" + subTotalIva;
+        const sub = parseFloat(sumaSubtotal)
+        const iva = parseFloat(subTotalIva)
+        //console.log(sub+iva)
+        totalpagar = sub + iva;
+        totalApagar.innerText = "$" + totalpagar.toFixed(2);
+        totalpagar=parseFloat(totalpagar.toFixed(2))
+        //console.log(totalpagar)
+        inputTotalFactura.value = parseFloat(totalpagar);
+
+
+        //console.log(sumaSubtotal); // La suma total de los valores sin el carácter "$"
+        const status= document.getElementById('idStatus');
+        const Status= parseInt(status.value)
+        //console.log(Status);
+
+
+
+        const botonones= document.querySelectorAll('.btn');
+        //console.log(botonones);
+        if (Status == 2){
+            for (let i = 0; i < botonones.length; i++) {
+                botonones[i].style.display = "none";
+            }
+        }
+
+
+
+
+
+
+
     }
+
 
 </script>

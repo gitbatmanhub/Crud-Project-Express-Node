@@ -11,7 +11,8 @@ const {
     deleteArmazon,
     agregarLuna,
     deleteLuna,
-    cerrarFactura
+    cerrarFactura,
+    listarFacturas
 } = require('../controllers/customerCliente')
 
 
@@ -28,8 +29,12 @@ router.post('/agregarArmazon', aggArmazonFactura.aggAF );
 router.post('/deleteItemArmazon', deleteArmazon.deleteA );
 router.post('/agregarLuna', agregarLuna.aggLuna);
 router.post('/deleteItemLuna', deleteLuna.deleteLu);
-
 router.post('/cerrarFactura', cerrarFactura.close);
+
+//Listar Facturas
+
+router.get('/listarfacturas', listarFacturas.list);
+
 
 
 module.exports = router;
