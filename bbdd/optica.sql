@@ -1,4 +1,6 @@
-create schema if not exists optica ;
+drop schema if exists optica;
+
+create schema if not exists optica;
 
 
 use optica;
@@ -125,25 +127,26 @@ values
 
 select * from marca;
 describe marca;
+alter table tipoLuna add column precio float(5,2) not null;
 
 
-insert into tipoluna(nameTipoluna)
+insert into tipoluna(nameTipoluna, precio)
 values
-    ("Monofocales"),
-    ("Progresivas"),
-    ("Bifocales"),
-    ("Fotocromáticas"),
-    ("Polarizadas"),
-    ("Antirreflejo"),
-    ("Trivex"),
-    ("Policarbonato"),
-    ("High-Index"),
-    ("Asféricas"),
-    ("Blue Block"),
-    ("Lunas de lectura"),
-    ("Lunas de pantalla"),
-    ("Lunas de descanso"),
-    ("Lunas deportivas");
+    ("Monofocales", 100),
+    ("Progresivas", 100),
+    ("Bifocales", 100),
+    ("Fotocromáticas", 100),
+    ("Polarizadas", 100),
+    ("Antirreflejo", 100),
+    ("Trivex", 100),
+    ("Policarbonato", 100),
+    ("High-Index", 100),
+    ("Asféricas", 100),
+    ("Blue Block", 100),
+    ("Lunas de lectura", 100),
+    ("Lunas de pantalla", 100),
+    ("Lunas de descanso", 100),
+    ("Lunas deportivas", 100);
 
 
 
@@ -181,13 +184,25 @@ alter table luna add column name varchar(50) default "Luna";
 select * from luna;
 alter table factura add column create_at timestamp default current_timestamp;
 
-
 create view datosLunaFactura as
 select luna.idLuna, luna.name, t.precio, t.nameTipoluna, luna.idFactura
 from luna
          inner join tipoluna t on luna.idTipoLuna = t.idTipoLuna;
 
 select * from datosLunaFactura where idFactura=13;
+create table statusFactura(
+                              idStatus int not null primary key auto_increment,
+                              status varchar(10) not null
+);
+
+
+insert into statusFactura(status)
+values ("Abierta"),
+       ("Cerrada");
+select * from statusFactura;
+alter table factura add column idStatus int not null default 1;
+alter table factura add constraint fk_idFacturaStatus foreign key (idStatus) references statusFactura(idStatus);
+
 create view datosClienteFactura as
 select c.nombreCliente,
        c.apellidoCliente,
@@ -200,20 +215,43 @@ from factura
          inner join cliente c on factura.idCliente = c.idCliente;
 select * from datosClienteFactura where idFactura=13;
 
-create table statusFactura(
-                              idStatus int not null primary key auto_increment,
-                              status varchar(10) not null
-);
 
-insert into statusFactura(status)
-values ("Abierta"),
-       ("Cerrada");
-select * from statusFactura;
-alter table factura add column idStatus int not null default 1;
-alter table factura add constraint fk_idFacturaStatus foreign key (idStatus) references statusFactura(idStatus);
 
 
 select * from factura where idFactura=21;
 select * from cliente;
+
+select * from statusFactura;
+
+
+select * from factura where idFactura=21;
+select * from cliente;
+
+
+select * from tipoluna;
+select * from marca;
+select * from marca;
+select * from tamano;
+
+select * from cliente;
+select * from factura;
+select * from statusFactura;
+
+#DROP VIEW listFacturas;
+create view listFacturas as
+select f.idFactura,
+       sF.status,
+       date_format(f.create_at, "%d/%m/%Y") as Fecha ,
+       CONCAT(c.nombreCliente, ' ', apellidoCliente) AS nombreCliente
+from factura f
+         inner join statusFactura sF on f.idStatus =sF.idStatus
+         inner join cliente c on f.idCliente = c.idCliente;
+select * from listFacturas;
+select * from cliente;
+
+
+select * from tipoLuna;
+
+
 
 
