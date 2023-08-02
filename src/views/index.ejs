@@ -68,7 +68,7 @@
                         <label for="nombreCliente" class="form-label">Nombres Cliente</label>
                         <select class="form-control" name="idCliente" id="">
                             <option selected disabled>Escoge un usuario</option>
-                            <% for (const clientes of categorias) { %>
+                            <% for (const clientes of cliente) { %>
                                 <option value="<%= clientes.idCliente %>"><%= clientes.nombreCompleto %></option>
                             <% } %>
                         </select>
