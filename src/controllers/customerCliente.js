@@ -1,7 +1,7 @@
 const listClientesController = {};
 listClientesController.list = (req, res) => {
     req.getConnection((err, conn) => {
-        conn.query('SELECT CONCAT(nombreCliente, \' \', apellidoCliente) AS nombreCliente FROM cliente;', (err, cliente) => {
+        conn.query('SELECT CONCAT(nombreCliente, \' \', apellidoCliente) AS nombreCliente, idCliente FROM cliente;', (err, cliente) => {
             if (err) {
                 res.json(err)
             }
@@ -68,7 +68,7 @@ facturas.crear = (req, res) => {
                     conn.query('SELECT * from tipoluna', (err, tipoluna) => {
 
                         conn.query('SELECT * FROM datosLunaFactura WHERE idFactura=?', [idFactura.id], (err, luna) => {
-
+                            console.log(luna)
                             conn.query('select * from datosClienteFactura where idFactura=?', [idFactura.id], (err, datos) => {
                                 //console.log(datos)
 
@@ -95,18 +95,54 @@ facturas.crear = (req, res) => {
 
 
 const crearFactura = {};
+
+crearFactura.make = (req, res) => {
+    const idCliente = req.body;
+    //console.log(idCliente);
+    req.getConnection((err, conn) => {
+        // Insertar el nuevo registro en la tabla "factura"
+        conn.query('INSERT INTO factura SET ?', [idCliente], (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Error al insertar la factura.');
+                return;
+            }
+
+            // Obtener el ID del último registro insertado
+            const lastInsertedId = result.insertId;
+
+            res.redirect('/factura/'+lastInsertedId);
+        });
+    });
+};
+
+
+
+
+
+
+/*
+const crearFactura = {};
 crearFactura.make = (req, res) => {
     const idCliente = req.body;
     //console.log(idCliente);
     req.getConnection((err, conn) => {
         conn.query('insert into factura set ?', [idCliente], (err, facturas) => {
-            const idFactura = facturas.insertId;
-            res.redirect('/factura/' + idFactura);
+
+            conn.query('SELECT * FROM factura WHERE id = (SELECT MAX(id) FROM factura);', (err, id) => {
+
+
+                console.log(id);
+                res.redirect('/factura/');
+
+            })
+
 
         })
-
     })
-}
+};
+
+ */
 
 const aggArmazonFactura = {};
 aggArmazonFactura.aggAF = (req, res) => {
@@ -160,15 +196,15 @@ deleteArmazon.deleteA = (req, res) => {
 const agregarLuna = {};
 agregarLuna.aggLuna = (req, res) => {
     const {idTipoluna, idFactura} = req.body;
+
     const dataLuna =
         {
             idTipoluna,
             idFactura
         };
     req.getConnection((err, conn) => {
-
         conn.query('insert into luna set ?', [dataLuna], (err, dataLuna) => {
-            console.log(err)
+            console.log(dataLuna);
             res.redirect('/factura/' + idFactura);
         });
     })
@@ -189,12 +225,12 @@ deleteLuna.deleteLu = (req, res) => {
 
 
 }
-const cerrarFactura={};
-cerrarFactura.close=(req, res)=>{
-    const {idFactura, totalFactura}=req.body;
-    req.getConnection((err, conn)=>{
-        conn.query('update factura set totalFactura=?,  idStatus=2 where idFactura=?', [totalFactura, idFactura], (err, rows)=>{
-            res.redirect('/factura/'+idFactura)
+const cerrarFactura = {};
+cerrarFactura.close = (req, res) => {
+    const {idFactura, totalFactura} = req.body;
+    req.getConnection((err, conn) => {
+        conn.query('update factura set totalFactura=?,  idStatus=2 where idFactura=?', [totalFactura, idFactura], (err, rows) => {
+            res.redirect('/factura/' + idFactura)
         })
     })
 }

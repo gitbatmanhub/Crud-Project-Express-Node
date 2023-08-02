@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan= require('morgan')
-const mysql= require('mysql');
+const mysql= require('mysql2');
 const myConnection = require('express-myconnection');
 const {urlencoded} = require("express");
 const app= express();
@@ -23,7 +23,7 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     host: 'localhost',
     user: 'root',
-    password: 'admin1223',
+    password: 'admin123',
     port: 3306,
     database: 'optica'
 }, 'single'))
