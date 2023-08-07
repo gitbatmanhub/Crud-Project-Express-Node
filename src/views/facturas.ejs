@@ -1,0 +1,59 @@
+<%- include('partials/header.ejs') -%>
+
+
+<table class="table" id="tablaFacturas">
+    <thead>
+    <tr>
+
+        <th scope="col">idFactura</th>
+        <th scope="col">Nombre Cliente</th>
+        <th scope="col">Estado Factura</th>
+        <th scope="col">Total Factura</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% if (todasFacturas) { %>
+        <% todasFacturas.forEach(function(todasFacturas) { %>
+            <tr>
+                <td><%= todasFacturas.idFactura %></td>
+                <td><%= todasFacturas.nombreCliente %></td>
+                <td><%= todasFacturas.nameEstado %></td>
+                <td>$<%= todasFacturas.totalFactura %></td>
+                <td><%= todasFacturas.Fecha %></td>
+                <td><%= todasFacturas.Hora %></td>
+                <td>
+                        <a  class="btn btn-primary" href="/datosfactura/<%= todasFacturas.idFactura %>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </a>
+                </td>
+            </tr>
+        <% }); %>
+
+    <% }else { %>
+
+    <% } %>
+
+
+    </tbody>
+</table>
+
+<div class="container" style="padding-top: 25px">
+
+</div>
+
+
+<%- include('partials/footer.ejs') -%>
+
+
+<style>
+    #tablaFacturas {
+        width: 80%;
+        margin: 0 auto;
+    }
+</style>

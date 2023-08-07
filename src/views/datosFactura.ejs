@@ -4,56 +4,32 @@
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
             <!--<img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">-->
-            <lottie-player src="https://lottie.host/21abfbe5-93b2-4584-a426-6acdff523415/n8SW3B4euB.json" background="transparent" speed="1" style="width: 380px; margin: 0 auto" loop autoplay></lottie-player>
+            <lottie-player src="https://lottie.host/1ba36f11-f135-46e2-b080-43d8843f688e/VAzqwh1doa.json" background="transparent" speed="1" style="width: 380px; " loop autoplay></lottie-player>
 
         </div>
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Factura Nr <%= idFactura %> </h1>
             <p class="lead">¡Bienvenido/a a la Maratón que te llevará más allá de tus metas!</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <button type="button"  data-bs-toggle="modal" data-bs-target="#makeentrada" class="btn btn-primary btn-lg ">Agregar Entradas</button>
+            <div class="container" style="display: flex">
+                <div class="" style="margin: 5px">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#makeentrada"
+                            class="btn btn-primary btn-lg ">Agregar Entradas
+                    </button>
+                </div>
+                <div class="" style="margin: 5px">
+                    <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
+                            data-bs-target="#cerrar">Cerrar Factura
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<div class="modal fade" id="makeentrada" tabindex="-1" aria-labelledby="makeentrada" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="agregarCliente">Crear Entrada</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="container">
+                <div class="container" style="padding-top: 10px">
+                    <label for="esteban"><b>Nombre completo:</b> <%= datosFacturaCliente.nameCompleto %></label><br>
+                    <label for="esteban"><b>Identificación:</b> 0<%= datosFacturaCliente.cedulaCliente %></label><br>
+                    <label for="esteban"><b>Estado Factura:</b> <%= datosFacturaCliente.nameEstado %></label>
+                    <input type="hidden" id="estadoFactura" value=" <%= datosFacturaCliente.estadoFactura %>">
+                </div>
             </div>
-            <div class="modal-body">
-                <form action="/entradaFactura"  method="post">
-                    <div class="mb-3">
-                        <label for="nombreCliente" class="form-label">Escoge el tipo de Entrada</label>
-                        <select name="idCategoria" class="form-control" id="">
-                            <option disabled selected>Escoge el tipo de Entrada</option>
-                            <% for (const categorias of categoria) { %>
-                                <option value="<%= categorias.idCategoria %>"><%= categorias.nameCategoria %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellidoCliente" class="form-label">Escoge la categoria</label>
-                        <select name="idTipoCarrera" id="" class="form-control">
-                            <option value="" selected disabled>Escoge la categoria</option>
-                            <% for (const tipos of tipo) { %>
-                                <option value="<%= tipos.idTipoCarrera %>"><%= tipos.nameTipoCarrera %></option>
-                            <% } %>
-                        </select>
-                    </div>
-                    <input type="hidden" name="idFactura" value="<%= idFactura %>">
-
-
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
-            </div>
-
         </div>
     </div>
 </div>
@@ -86,7 +62,9 @@
                 <td><%= datos.Fecha %></td>
                 <td class="precio">$<%= datos.precioEntrada %></td>
                 <td>
-                    <form action="/deleteItemArmazon" method="post">
+                    <form action="/borrarentrada" method="post">
+                        <input type="hidden" name="idEntrada" value="<%= datos.idEntrada %>">
+                        <input type="hidden" name="idFactura" value="<%= idFactura %>">
                         <button type="submit" class="btn btn-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash" viewBox="0 0 16 16">
@@ -105,26 +83,25 @@
 
     <% } %>
 
-
     <tr>
         <td></td>
         <td></td>
         <td>Subtotal</td>
-        <td id="subtotal"></td>
+        <td id="subPrecio"></td>
 
     </tr>
     <tr>
         <td></td>
         <td></td>
         <td>IVA 12%</td>
-        <td id="masIva"></td>
+        <td id="ivaPrecio"></td>
 
     </tr>
     <tr>
         <td></td>
         <td></td>
         <td>Total a Pagar</td>
-        <td id="totalPagar"></td>
+        <td id="totalPrecio"></td>
 
     </tr>
 
@@ -132,9 +109,121 @@
 </table>
 
 
+<div class="modal fade" id="makeentrada" tabindex="-1" aria-labelledby="makeentrada" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Crear Entrada</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/entradaFactura" method="post">
+                    <div class="mb-3">
+                        <label for="nombreCliente" class="form-label">Escoge el tipo de Entrada</label>
+                        <select name="idCategoria" class="form-control" id="">
+                            <option selected disabled>Escoge el tipo de Entrada</option>
+                            <% for (const categorias of categoria) { %>
+                                <option value="<%= categorias.idCategoria %>"><%= categorias.nameCategoria %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidoCliente" class="form-label">Escoge la categoria</label>
+                        <select name="idTipoCarrera" id="" class="form-control">
+                            <option value="" selected disabled>Escoge la categoria</option>
+                            <% for (const tipos of tipo) { %>
+                                <option value="<%= tipos.idTipoCarrera %>"><%= tipos.nameTipoCarrera %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <input type="hidden" name="idFactura" value="<%= idFactura %>">
 
 
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
 
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cerrar" tabindex="-1" aria-labelledby="cerrar" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="agregarCliente">Cerrar Factura</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/cerrarFactura" method="post">
+                    <div class="mb-3 container">
+                        <p>Está a punto de cerrar la <b>Factura Nr <%= idFactura %> </b> a nombre del <b>Sr(a) <%= datosFacturaCliente.nameCompleto %> </b> por un valor de:
+                            <input class="form-control" name="" id="totalConfirm" type="text" style="width: 200px" readonly> <br>
+                            <input type="hidden" name="totalFactura" value="" id="totalFacturaInput">
+                        ¿Está seguro que desea culminar y cerrar la orden?</p>
+                    </div>
+
+                    <input type="hidden" name="idFactura" value="<%= idFactura %>">
+
+
+                    <button type="submit" class="btn btn-primary">Si, cerrar y enviar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="container" style="padding-top: 25px">
+
+</div>
 
 <%- include('partials/footer.ejs') -%>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<style>
+    #tablaPrecios {
+        width: 80%;
+        margin: 0 auto;
+    }
+</style>
+
+
+<script>
+    const precios = document.querySelectorAll('.precio');
+    const subtotal = document.getElementById('subPrecio');
+    const subtotalMasIva = document.getElementById('ivaPrecio');
+    const totalApagar = document.getElementById('totalPrecio');
+
+
+    let sumSubPrecio = 0;
+    let precioIva = 0;
+    let total = 0;
+
+    for (let i = 0; i < precios.length; i++) {
+        let precioTexto = precios[i].innerHTML;
+        let precioSinDolar = precioTexto.replace('$', ''); // Eliminar el carácter "$"
+        let precioNumero = parseFloat(precioSinDolar); // Convertir el valor a número
+        sumSubPrecio += precioNumero; // Sumar al total
+    }
+    subtotal.innerText = "$" + sumSubPrecio.toFixed(2);
+    precioIva = (sumSubPrecio * 0.12).toFixed(2);
+    subtotalMasIva.innerText = "$" + precioIva;
+
+
+    total = parseFloat(sumSubPrecio) + parseFloat(precioIva);
+    console.log(total);
+    totalApagar.innerText = "$" + total.toFixed(2);
+
+    const inputConfirm= document.getElementById('totalConfirm');
+    inputConfirm.value="$" + total.toFixed(2);
+
+    const estadoFactura= parseInt(document.getElementById('estadoFactura').value);
+    const botones= document.querySelectorAll('.btn')
+    if (estadoFactura==1){
+        for (let i = 0; i < botones.length; i++) {
+            botones[i].style.display = "none";
+        }
+    }
+    const inputFactura= document.getElementById('totalFacturaInput');
+    inputFactura.value=parseFloat(total.toFixed(2));
+
+</script>
