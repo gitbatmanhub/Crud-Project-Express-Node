@@ -148,7 +148,8 @@ values
     ("Lunas de descanso", 100),
     ("Lunas deportivas", 100);
 
-
+alter table armazon add column fecha timestamp default current_timestamp;
+alter table luna add column fecha timestamp default current_timestamp;
 
 alter table armazon add column name varchar(50) default "Armazon";
 select * from armazon;
@@ -241,17 +242,42 @@ select * from statusFactura;
 create view listFacturas as
 select f.idFactura,
        sF.status,
-       date_format(f.create_at, "%d/%m/%Y") as Fecha ,
+       date_format(f.create_at, "%Y-%m-%d") as Fecha ,
        CONCAT(c.nombreCliente, ' ', apellidoCliente) AS nombreCliente
 from factura f
          inner join statusFactura sF on f.idStatus =sF.idStatus
          inner join cliente c on f.idCliente = c.idCliente;
+use optica;
 select * from listFacturas;
 select * from cliente;
 
 
 select * from tipoLuna;
 
+select * from armazon;
+select * from luna;
+
+
+select count(idFactura) from listFacturas;
+select * from armazon;
+
+select count(idArmazon) from armazon where fecha between "2023-08-08 15:40:24" and "2023-08-08 15:40:24";
+select count(idLuna) from luna where fecha between "2023-08-08 15:40:24" and "2023-08-08 15:40:24";
+
+
+select count(*) as contador
+from luna
+where fecha
+    between "2023-08-08 15:40:04" and "2023-08-08 15:40:24";
+
+
+sELECT COUNT(*) AS cantidad_registros
+FROM luna
+WHERE fecha BETWEEN "2023-08-08 15:40:04" AND "2023-08-08 15:40:24";
+
+
+select * from luna;
+select * from;
 
 
 

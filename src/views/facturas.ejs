@@ -1,5 +1,20 @@
 <%- include('partials/header.ejs') -%>
 
+<h1>Listar Facturas</h1>
+<form action="/buscarFacturas" method="post">
+    <div class="container" style="display: flex; text-align: center">
+        <div class="gap">
+            <input type="date" name="fecha1" class="form-control">
+        </div>
+        <div class="gap">
+            <input type="date" name="fecha2" class="form-control">
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Enviar</button>
+        </div>
+    </div>
+</form>
+
 
 
 
@@ -47,6 +62,13 @@
         <td colspan="5">No existen datos</td>
 
     <% } %>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Cantidad de Facturas</td>
+        <td><%= cantidad.cantidad %></td>
+    </tr>
 
 
     </tbody>

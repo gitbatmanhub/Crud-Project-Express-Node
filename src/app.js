@@ -25,7 +25,7 @@ app.use(myConnection(mysql, {
     user: 'root',
     password: 'admin1223',
     port: 3306,
-    database: 'optica2'
+    database: 'optica'
 }, 'single'))
 
 

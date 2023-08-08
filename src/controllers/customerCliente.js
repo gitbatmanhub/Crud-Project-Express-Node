@@ -251,12 +251,30 @@ const listarFacturas={};
 listarFacturas.list=(req, res)=>{
     req.getConnection((err, conn)=>{
         conn.query('select * from listFacturas', (err, listFacturas)=>{
-            res.render('facturas', {
-                listFacturas
+            conn.query('select count(idFactura) as cantidad from listFacturas', (err, cantidad)=>{
+                console.log(cantidad)
+                res.render('facturas', {
+                    listFacturas,
+                    cantidad: cantidad[0]
+                })
             })
+
+
         })
     })
 }
+const buscarFacturas={};
+buscarFacturas.buscar=(req, res)=>{
+    req.getConnection((err, conn)=>{
+        console.log(req.body)
+        res.render('facturas')
+    })
+}
+
+
+
+
+
 module.exports = {
     listClientesController,
     clienteController,
@@ -269,6 +287,7 @@ module.exports = {
     agregarLuna,
     deleteLuna,
     cerrarFactura,
-    listarFacturas
+    listarFacturas,
+    buscarFacturas
 };
 
