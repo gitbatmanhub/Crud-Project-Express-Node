@@ -58,8 +58,10 @@ alter table entrada
 
 
 
-alter table factura add column fecha timestamp default current_timestamp;
-alter table factura add column totalFactura float(5,2) not null default 00.00;
+alter table factura
+    add column fecha timestamp default current_timestamp;
+alter table factura
+    add column totalFactura float(5, 2) not null default 00.00;
 insert into categoria (nameCategoria, precioCategoria)
 values ("Normal", 120.12),
        ("Senior", 150.25),
@@ -84,7 +86,7 @@ select e.idEntrada,
 from entrada e
          inner join categoria c on e.idCategoria = c.idCategoria
          inner join tipoCarrera tC on e.idTipoCarrera = tC.idTipoCarrera
-         ;
+;
 
 
 use maraton;
@@ -129,35 +131,72 @@ from datosEntradasfactura;
 create view datosFacturaCliente as
 select f.idFactura,
        c.idCliente,
-       concat(c.nameCliente, ' ' , c.apellidoCliente) as nameCompleto,
+       concat(c.nameCliente, ' ', c.apellidoCliente) as nameCompleto,
        c.cedulaCliente,
        f.estadoFactura,
        e.nameEstado
 from factura f
-inner join cliente c on f.idCliente = c.idCliente
-inner join estado e on f.estadoFactura=e.idEstado;
+         inner join cliente c on f.idCliente = c.idCliente
+         inner join estado e on f.estadoFactura = e.idEstado;
 
 
 
-select * from datosFacturaCliente;
+select *
+from datosFacturaCliente;
 
-select * from factura where idFactura=1;
+select *
+from factura
+where idFactura = 1;
 
-update factura set factura.estadoFactura=2 where idFactura=2;
-select * from factura where idFactura=2;
+update factura
+set factura.estadoFactura=2
+where idFactura = 2;
+select *
+from factura
+where idFactura = 2;
 
+drop view todasFacturas;
 
 create view todasFacturas as
 select f.idFactura,
        concat(c.nameCliente, ' ', c.apellidoCliente) as nombreCliente,
        e.nameEstado,
        f.totalFactura,
-       date_format(f.fecha, "%d/%m/%Y") as Fecha,
-       date_format(f.fecha, "%h:%m") as Hora
+       date_format(f.fecha, "%Y-%m-%d")              as Fecha,
+       date_format(f.fecha, "%h:%m")                 as Hora
 
 from factura f
-inner join cliente c on f.idCliente = c.idCliente
-inner join estado e on f.estadoFactura=e.idEstado;
+         inner join cliente c on f.idCliente = c.idCliente
+         inner join estado e on f.estadoFactura = e.idEstado;
 
-delete from entrada where idFactura=1;
-delete from factura where idFactura=1;
+select *
+from factura
+where fecha
+          between "2023-08-07 12:25:43"
+          and "2023-08-07 12:25:43";
+select *
+from todasFacturas;
+-- Facturas dentro del tiempo
+select *
+from todasFacturas
+where Fecha between "07-08-2023" and "07-08-2023";
+-- Contar la cantidad de facturas en x tiempo
+select *
+from todasFacturas;
+select count(idFactura)
+from todasFacturas
+where Fecha between "2023-08-07" and "2023-08-07";
+-- Nr de Entradas vendidas en x lapso de tiempo
+select *
+from entrada;
+
+select count(idEntrada) from entrada where fechaHora between "2023-08-07 12:39:34" and "2023-08-07 12:39:34";
+
+select *
+from entrada;
+
+select count(idEntrada) as contador from entrada where fechaHora between "2023-08-07 12:39:34" and "2023-08-08 23:59:34";
+
+select *
+from todasFacturas
+where Fecha between '2023-08-07' and '2023-08-07';

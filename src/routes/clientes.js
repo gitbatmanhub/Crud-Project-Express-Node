@@ -9,7 +9,8 @@ const {
     err,
     borrarentrada,
     cerrar,
-    ver
+    ver,
+    consultarFacturas
 } = require('../controllers/datosMaraton')
 
 
@@ -21,6 +22,7 @@ router.post('/entradaFactura', entradaFactura.agregar)
 router.post('/borrarentrada', borrarentrada.delet)
 router.post('/cerrarFactura', cerrar.close)
 router.get('/verFacturas', ver.view);
+router.post('/consultarFactura', consultarFacturas.buscar);
 
 router.use((req, res) => {
     res.redirect('/');

@@ -137,9 +137,9 @@ borrarentrada.delet = (req, res) => {
         })
     })
 }
-const cerrar={};
-cerrar.close=(req, res)=>{
-    const {idFactura, totalFactura}=req.body;
+const cerrar = {};
+cerrar.close = (req, res) => {
+    const {idFactura, totalFactura} = req.body;
     //console.log(req.body)
     const dataFactura = {
         idFactura: idFactura[0],
@@ -147,25 +147,60 @@ cerrar.close=(req, res)=>{
     }
     //console.log(dataFactura);
     //console.log(idFactura)
-    req.getConnection((err, conn)=>{
-        conn.query('update factura set estadoFactura=1, totalFactura=?  where idFactura=?', [totalFactura, idFactura], (err, estadoFactura)=>{
+    req.getConnection((err, conn) => {
+        conn.query('update factura set estadoFactura=1, totalFactura=?  where idFactura=?', [totalFactura, idFactura], (err, estadoFactura) => {
             res.redirect('datosfactura/' + idFactura)
         })
     })
 }
 
-const ver={};
+const ver = {};
 ver.view = (req, res) => {
     req.getConnection((err, conn) => {
         conn.query('select * from todasFacturas', (err, todasFacturas) => {
-            if (err) {
-                res.json(err);
-            }
-            res.render('facturas', { todasFacturas: todasFacturas }); // Pasa toda la variable todasFacturas
-            //console.log(todasFacturas);
+            conn.query('select count(idFactura) as contador from todasFacturas', (err, contador) => {
+                conn.query('select count(idEntrada) as contador from entrada', (err, contadorE) => {
+                    if (err) {
+                        res.json(err);
+                    }
+
+                    res.render('facturas', {
+                        todasFacturas: todasFacturas,
+                        contador: contador[0],
+                        contadorE: contadorE[0]
+                    });
+                })
+            })
         });
     });
 };
+const consultarFacturas = {};
+consultarFacturas.buscar = (req, res) => {
+    const {fecha1, fecha2} = req.body;
+    req.getConnection((err, conn) => {
+        conn.query('select * from todasFacturas where Fecha between ? and ?;', [fecha1, fecha2], (err, todasFacturas) => {
+            conn.query('select count(idFactura) as contador from todasFacturas where Fecha between ? and ?;', [fecha1, fecha2], (err, contador) => {
+                Fecha1H=fecha1+ ' 00:00:00';
+                Fecha2H=fecha2+ ' 23:59:00';
+                console.log(Fecha1H)
+                console.log(Fecha2H)
+
+                conn.query('select count(idEntrada) as contador from entrada where fechaHora between ? and ?;', [Fecha1H , Fecha2H], (err, contadorE) => {
+                    if (err) {
+                        res.json(err);
+                        //console.log(err)
+                    }
+                    console.log(contadorE[0])
+                    res.render('facturas', {
+                        todasFacturas: todasFacturas,
+                        contador: contador[0],
+                        contadorE:contadorE[0]
+                    }); // Pasa toda la variable todasFacturas
+                })
+            })
+        });
+    });
+}
 
 
 module.exports = {
@@ -177,5 +212,6 @@ module.exports = {
     err,
     borrarentrada,
     cerrar,
-    ver
+    ver,
+    consultarFacturas
 };
