@@ -271,13 +271,21 @@ where fecha
     between "2023-08-08 15:40:04" and "2023-08-08 15:40:24";
 
 
-sELECT COUNT(*) AS cantidad_registros
-FROM luna
-WHERE fecha BETWEEN "2023-08-08 15:40:04" AND "2023-08-08 15:40:24";
+SELECT COUNT(idFactura) AS cantidad_registros FROM luna
+WHERE fecha
+    BETWEEN "2023-08-08 00:00:00" AND "2023-08-08 23:59:00";
+
+select count(idArmazon)
+from armazon
+where fecha
+between "2023-08-08 00:00:00" AND "2023-08-08 23:59:00";
 
 
 select * from luna;
-select * from;
+select * from listFacturas where Fecha between "2023-08-08" and "2023-08-08";
 
+delete from factura;
+delete from armazon;
+delete from luna;
 
-
+select * from factura;

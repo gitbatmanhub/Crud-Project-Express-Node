@@ -1,3 +1,4 @@
+const {query} = require("express");
 const listClientesController = {};
 listClientesController.list = (req, res) => {
     req.getConnection((err, conn) => {
@@ -27,7 +28,7 @@ clienteController.save = (req, res) => {
 const addLente = {};
 addLente.aggLe = (req, res) => {
     const {nameMarca, precio} = req.body;
-    const datalente={
+    const datalente = {
         nameMarca,
         precioIndividual: precio
     }
@@ -43,9 +44,9 @@ addLente.aggLe = (req, res) => {
 const addLuna = {};
 addLuna.aggLu = (req, res) => {
     const {nameTipoluna, precio} = req.body;
-    const dataLuna={
-      nameTipoluna,
-      precio
+    const dataLuna = {
+        nameTipoluna,
+        precio
     };
     req.getConnection((err, conn) => {
         conn.query('insert into tipoluna set ?', [dataLuna], (err, marca) => {
@@ -119,14 +120,10 @@ crearFactura.make = (req, res) => {
             // Obtener el ID del último registro insertado
             const lastInsertedId = result.insertId;
 
-            res.redirect('/factura/'+lastInsertedId);
+            res.redirect('/factura/' + lastInsertedId);
         });
     });
 };
-
-
-
-
 
 
 /*
@@ -244,35 +241,55 @@ cerrarFactura.close = (req, res) => {
 }
 
 
+const listarFacturas = {};
+listarFacturas.list = (req, res) => {
+    req.getConnection((err, conn) => {
+        conn.query('select * from listFacturas', (err, listFacturas) => {
+            conn.query('select count(idFactura) as cantidad from listFacturas', (err, cantidad) => {
+                //console.log(cantidad)
+                conn.query('SELECT COUNT(idFactura) AS cantidadLunas FROM luna;', (err, cantidadLunas) => {
+                    conn.query('SELECT COUNT(idFactura) AS cantidadArmazon FROM armazon;', (err, cantidadArmazon) => {
+                        res.render('facturas', {
+                            listFacturas,
+                            cantidad: cantidad[0],
+                            cantidadLunas: cantidadLunas[0],
+                            cantidadArmazon: cantidadArmazon[0]
 
-
-
-const listarFacturas={};
-listarFacturas.list=(req, res)=>{
-    req.getConnection((err, conn)=>{
-        conn.query('select * from listFacturas', (err, listFacturas)=>{
-            conn.query('select count(idFactura) as cantidad from listFacturas', (err, cantidad)=>{
-                console.log(cantidad)
-                res.render('facturas', {
-                    listFacturas,
-                    cantidad: cantidad[0]
+                        })
+                    })
                 })
+
             })
+        })
 
+    })
+}
+const buscarFacturas = {};
+buscarFacturas.buscar = (req, res) => {
+    req.getConnection((err, conn) => {
+        const {fecha1, fecha2}=req.body;
+        console.log(req.body)
 
+        Fecha1H=fecha1+ ' 00:00:00';
+        Fecha2H=fecha2+ ' 23:59:00';
+        conn.query('select * from listFacturas where Fecha between ? and ?',[fecha1, fecha2], (err, listFacturas) => {
+            conn.query('select count(idFactura) as cantidad from listFacturas  where Fecha between ? and ?',[fecha1, fecha2], (err, cantidad) => {
+                conn.query('SELECT COUNT(idFactura) AS cantidadLunas FROM luna  where Fecha between ? and ?',[Fecha1H, Fecha2H], (err, cantidadLunas) => {
+                    conn.query('SELECT COUNT(idFactura) AS cantidadArmazon FROM armazon where Fecha between ? and ?',[Fecha1H, Fecha2H], (err, cantidadArmazon) => {
+                        res.render('facturas', {
+                            listFacturas,
+                            cantidad: cantidad[0],
+                            cantidadLunas: cantidadLunas[0],
+                            cantidadArmazon: cantidadArmazon[0]
+
+                        })
+                    })
+                })
+
+            })
         })
     })
 }
-const buscarFacturas={};
-buscarFacturas.buscar=(req, res)=>{
-    req.getConnection((err, conn)=>{
-        console.log(req.body)
-        res.render('facturas')
-    })
-}
-
-
-
 
 
 module.exports = {
