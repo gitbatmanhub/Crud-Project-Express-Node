@@ -1,5 +1,7 @@
+<!-- Incluir el encabezado -->
 <%- include('partials/header.ejs') -%>
 
+<!-- Título y formulario para consultar facturas por rango de fechas -->
 <h1>Ver facturas</h1>
 <form action="/consultarFactura" method="post">
     <div class="container" style="display: flex; text-align: center">
@@ -15,10 +17,10 @@
     </div>
 </form>
 
+<!-- Tabla para mostrar las facturas -->
 <table class="table" id="tablaFacturas">
     <thead>
     <tr>
-
         <th scope="col">idFactura</th>
         <th scope="col">Nombre Cliente</th>
         <th scope="col">Estado Factura</th>
@@ -29,7 +31,6 @@
     </tr>
     </thead>
     <tbody>
-
     <% if (todasFacturas) { %>
         <% todasFacturas.forEach(function(todasFacturas) { %>
             <tr>
@@ -40,6 +41,7 @@
                 <td><%= todasFacturas.Fecha %></td>
                 <td><%= todasFacturas.Hora %></td>
                 <td>
+                    <!-- Enlace para ver detalles de la factura -->
                     <a class="btn btn-primary" href="/datosfactura/<%= todasFacturas.idFactura %>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-search" viewBox="0 0 16 16">
@@ -49,7 +51,7 @@
                 </td>
             </tr>
         <% }); %>
-
+        <!-- Mostrar totales de entradas y facturas -->
         <% if (contador) { %>
             <tr>
                 <td></td>
@@ -60,24 +62,20 @@
                 <td><%= contador.contador %> </td>
             </tr>
         <% } else { %>
-
         <% } %>
-
     <% }else { %>
-
     <% } %>
     </tbody>
 </table>
 
-
+<!-- Espacio adicional al final -->
 <div class="container" style="padding-top: 25px">
-
 </div>
 
-
+<!-- Incluir el pie de página -->
 <%- include('partials/footer.ejs') -%>
 
-
+<!-- Estilos personalizados para la tabla -->
 <style>
     #tablaFacturas {
         width: 80%;

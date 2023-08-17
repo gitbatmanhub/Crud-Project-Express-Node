@@ -1,17 +1,14 @@
+<!-- Incluir el encabezado -->
 <%- include('partials/header.ejs') -%>
 
-
-
-
-
+<!-- Contenido principal -->
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-10 col-sm-8 col-lg-6">
-            <!--<img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">-->
+            <!-- Animación Lottie -->
             <lottie-player src="https://lottie.host/21abfbe5-93b2-4584-a426-6acdff523415/n8SW3B4euB.json"
                            background="transparent" speed="1" style="width: 380px; margin: 0 auto" loop
                            autoplay></lottie-player>
-
         </div>
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Maraton</h1>
@@ -20,6 +17,7 @@
                 experiencia única llena de pasión y logros!<br> ¡Bienvenido/a a la Maratón que te llevará más allá de
                 tus metas!</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <!-- Botones para acciones -->
                 <button type="button" data-bs-toggle="modal" data-bs-target="#crearentrada"
                         class="btn btn-primary btn-lg ">Vender Entrada
                 </button>
@@ -32,7 +30,7 @@
     </div>
 </div>
 
-
+<!-- Modal para agregar cliente -->
 <div class="modal fade" id="agregarCliente" tabindex="-1" aria-labelledby="agregarCliente" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -45,7 +43,6 @@
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Nombres Cliente</label>
                         <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" required>
-
                     </div>
                     <div class="mb-3">
                         <label for="apellidoCliente" class="form-label">Apellidos Cliente</label>
@@ -63,7 +60,7 @@
     </div>
 </div>
 
-
+<!-- Modal para crear entrada -->
 <div class="modal fade" id="crearentrada" tabindex="-1" aria-labelledby="crearentrada" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -76,27 +73,21 @@
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Nombres Cliente</label>
                         <select class="form-control" name="idCliente" id="">
-                                <option disabled selected value>Escoge un usuario</option>
-                                <% for (const clientes of cliente) { %>
-                                    <option value="<%= clientes.idCliente %>"><%= clientes.nombreCompleto %></option>
-                                <% } %>
-
+                            <option disabled selected value>Escoge un usuario</option>
+                            <% for (const clientes of cliente) { %>
+                                <option value="<%= clientes.idCliente %>"><%= clientes.nombreCompleto %></option>
+                            <% } %>
                         </select>
                     </div>
-
-
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
 
+<!-- Incluir el script de la animación Lottie -->
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-
+<!-- Incluir el pie de página -->
 <%- include('partials/footer.ejs') -%>
-
-
-

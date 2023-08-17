@@ -1,32 +1,40 @@
 <%- include('partials/header.ejs') -%>
 
+<!-- Sección de encabezado de la página -->
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <!-- Columna derecha con contenido multimedia -->
         <div class="col-10 col-sm-8 col-lg-6">
-            <!--<img src="bootstrap-themes.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">-->
-            <lottie-player src="https://lottie.host/1ba36f11-f135-46e2-b080-43d8843f688e/VAzqwh1doa.json" background="transparent" speed="1" style="width: 380px; " loop autoplay></lottie-player>
-
+            <!-- Animación Lottie usando un reproductor -->
+            <lottie-player src="https://lottie.host/1ba36f11-f135-46e2-b080-43d8843f688e/VAzqwh1doa.json" background="transparent" speed="1" style="width: 380px;" loop autoplay></lottie-player>
         </div>
+        <!-- Columna izquierda con información y botones -->
         <div class="col-lg-6">
+            <!-- Título principal de la página -->
             <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Factura Nr <%= idFactura %> </h1>
+            <!-- Descripción introductoria -->
             <p class="lead">¡Bienvenido/a a la Maratón que te llevará más allá de tus metas!</p>
+            <!-- Contenedor para botones de acción -->
             <div class="container" style="display: flex">
                 <div class="" style="margin: 5px">
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#makeentrada"
-                            class="btn btn-primary btn-lg ">Agregar Entradas
-                    </button>
+                    <!-- Botón para abrir el modal de creación de entradas -->
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#makeentrada" class="btn btn-primary btn-lg ">Agregar Entradas</button>
                 </div>
                 <div class="" style="margin: 5px">
-                    <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
-                            data-bs-target="#cerrar">Cerrar Factura
-                    </button>
+                    <!-- Botón para abrir el modal de cierre de factura -->
+                    <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#cerrar">Cerrar Factura</button>
                 </div>
             </div>
+            <!-- Contenedor para mostrar información del cliente y la factura -->
             <div class="container">
                 <div class="container" style="padding-top: 10px">
+                    <!-- Etiqueta para mostrar el nombre completo del cliente -->
                     <label for="esteban"><b>Nombre completo:</b> <%= datosFacturaCliente.nameCompleto %></label><br>
+                    <!-- Etiqueta para mostrar la identificación del cliente -->
                     <label for="esteban"><b>Identificación:</b> 0<%= datosFacturaCliente.cedulaCliente %></label><br>
+                    <!-- Etiqueta para mostrar el estado de la factura -->
                     <label for="esteban"><b>Estado Factura:</b> <%= datosFacturaCliente.nameEstado %></label>
+                    <!-- Campo oculto para almacenar el estado de la factura -->
                     <input type="hidden" id="estadoFactura" value=" <%= datosFacturaCliente.estadoFactura %>">
                 </div>
             </div>
@@ -37,11 +45,13 @@
 
 
 
+
+<!-- Tabla para mostrar los detalles de las entradas y cálculos relacionados -->
 <table class="table" id="tablaPrecios">
     <thead>
     <tr>
-
-        <th scope="col">Categoria</th>
+        <!-- Encabezados de columna -->
+        <th scope="col">Categoría</th>
         <th scope="col">Tipo Carrera</th>
         <th scope="col">Fecha</th>
         <th scope="col">Precio</th>
@@ -51,64 +61,66 @@
     <tbody>
 
     <% if (datos) { %>
-        <!-- Si la data existe, muestra este div -->
+        <!-- Si hay datos para mostrar -->
 
-
-
-        <% datos.forEach(function(datos) { %>
+        <% /* Iterar a través de cada conjunto de datos */ datos.forEach(function(datos) { %>
             <tr>
+                <!-- Columnas de datos -->
                 <td><%= datos.nameCategoria %></td>
                 <td><%= datos.nameTipoCarrera %></td>
                 <td><%= datos.Fecha %></td>
                 <td class="precio">$<%= datos.precioEntrada %></td>
                 <td>
+                    <!-- Formulario para eliminar una entrada -->
                     <form action="/borrarentrada" method="post">
                         <input type="hidden" name="idEntrada" value="<%= datos.idEntrada %>">
                         <input type="hidden" name="idFactura" value="<%= idFactura %>">
                         <button type="submit" class="btn btn-danger">
+                            <!-- Icono de basura utilizando SVG -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                <path
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
                             </svg>
                         </button>
-
                     </form>
-
                 </td>
             </tr>
         <% }); %>
 
-    <% }else { %>
+    <% } else { %>
+        <!-- Si no hay datos, mostrará esta sección -->
 
     <% } %>
 
+    <!-- Fila para mostrar el subtotal -->
     <tr>
         <td></td>
         <td></td>
         <td>Subtotal</td>
         <td id="subPrecio"></td>
-
     </tr>
+    <!-- Fila para mostrar el IVA 12% -->
     <tr>
         <td></td>
         <td></td>
         <td>IVA 12%</td>
         <td id="ivaPrecio"></td>
-
     </tr>
+    <!-- Fila para mostrar el total a pagar -->
     <tr>
         <td></td>
         <td></td>
         <td>Total a Pagar</td>
         <td id="totalPrecio"></td>
-
     </tr>
 
     </tbody>
 </table>
 
 
+<!-- Modal para agregar una entrada -->
 <div class="modal fade" id="makeentrada" tabindex="-1" aria-labelledby="makeentrada" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -118,34 +130,37 @@
             </div>
             <div class="modal-body">
                 <form action="/entradaFactura" method="post">
+                    <!-- Selección del tipo de entrada -->
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Escoge el tipo de Entrada</label>
                         <select name="idCategoria" class="form-control" id="">
                             <option selected disabled>Escoge el tipo de Entrada</option>
-                            <% for (const categorias of categoria) { %>
+                            <% /* Iterar a través de las categorías disponibles */ for (const categorias of categoria) { %>
                                 <option value="<%= categorias.idCategoria %>"><%= categorias.nameCategoria %></option>
                             <% } %>
                         </select>
                     </div>
+                    <!-- Selección de la categoría -->
                     <div class="mb-3">
-                        <label for="apellidoCliente" class="form-label">Escoge la categoria</label>
+                        <label for="apellidoCliente" class="form-label">Escoge la categoría</label>
                         <select name="idTipoCarrera" id="" class="form-control">
-                            <option value="" selected disabled>Escoge la categoria</option>
-                            <% for (const tipos of tipo) { %>
+                            <option value="" selected disabled>Escoge la categoría</option>
+                            <% /* Iterar a través de los tipos de carrera disponibles */ for (const tipos of tipo) { %>
                                 <option value="<%= tipos.idTipoCarrera %>"><%= tipos.nameTipoCarrera %></option>
                             <% } %>
                         </select>
                     </div>
+                    <!-- Campo oculto para almacenar el ID de la factura actual -->
                     <input type="hidden" name="idFactura" value="<%= idFactura %>">
-
-
+                    <!-- Botón para enviar el formulario -->
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Modal para cerrar la factura -->
 <div class="modal fade" id="cerrar" tabindex="-1" aria-labelledby="cerrar" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -159,26 +174,28 @@
                         <p>Está a punto de cerrar la <b>Factura Nr <%= idFactura %> </b> a nombre del <b>Sr(a) <%= datosFacturaCliente.nameCompleto %> </b> por un valor de:
                             <input class="form-control" name="" id="totalConfirm" type="text" style="width: 200px" readonly> <br>
                             <input type="hidden" name="totalFactura" value="" id="totalFacturaInput">
-                        ¿Está seguro que desea culminar y cerrar la orden?</p>
+                            ¿Está seguro que desea culminar y cerrar la orden?</p>
                     </div>
-
+                    <!-- Campo oculto para almacenar el ID de la factura actual -->
                     <input type="hidden" name="idFactura" value="<%= idFactura %>">
-
-
+                    <!-- Botón para enviar el formulario -->
                     <button type="submit" class="btn btn-primary">Si, cerrar y enviar</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Contenedor vacío con espacio superior -->
 <div class="container" style="padding-top: 25px">
-
 </div>
-
+<!-- Incluir el pie de página -->
 <%- include('partials/footer.ejs') -%>
+
+<!-- Incluir el script de Lottie Player desde la CDN -->
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
+<!-- Definir estilos personalizados -->
 <style>
     #tablaPrecios {
         width: 80%;
@@ -186,18 +203,20 @@
     }
 </style>
 
-
+<!-- Script para calcular y manipular precios y estado de factura -->
 <script>
+    // Obtener todos los elementos con clase 'precio'
     const precios = document.querySelectorAll('.precio');
     const subtotal = document.getElementById('subPrecio');
     const subtotalMasIva = document.getElementById('ivaPrecio');
     const totalApagar = document.getElementById('totalPrecio');
 
-
+    // Variables para calcular totales
     let sumSubPrecio = 0;
     let precioIva = 0;
     let total = 0;
 
+    // Calcular el subtotal sumando los precios de las entradas
     for (let i = 0; i < precios.length; i++) {
         let precioTexto = precios[i].innerHTML;
         let precioSinDolar = precioTexto.replace('$', ''); // Eliminar el carácter "$"
@@ -205,25 +224,29 @@
         sumSubPrecio += precioNumero; // Sumar al total
     }
     subtotal.innerText = "$" + sumSubPrecio.toFixed(2);
+
+    // Calcular el IVA y mostrarlo
     precioIva = (sumSubPrecio * 0.12).toFixed(2);
     subtotalMasIva.innerText = "$" + precioIva;
 
-
+    // Calcular el total a pagar y mostrarlo
     total = parseFloat(sumSubPrecio) + parseFloat(precioIva);
-    console.log(total);
     totalApagar.innerText = "$" + total.toFixed(2);
 
-    const inputConfirm= document.getElementById('totalConfirm');
-    inputConfirm.value="$" + total.toFixed(2);
+    // Actualizar el valor del input de confirmación con el total a pagar
+    const inputConfirm = document.getElementById('totalConfirm');
+    inputConfirm.value = "$" + total.toFixed(2);
 
-    const estadoFactura= parseInt(document.getElementById('estadoFactura').value);
-    const botones= document.querySelectorAll('.btn')
-    if (estadoFactura==1){
+    // Obtener el estado de la factura desde un campo oculto y ocultar botones si la factura está cerrada
+    const estadoFactura = parseInt(document.getElementById('estadoFactura').value);
+    const botones = document.querySelectorAll('.btn')
+    if (estadoFactura == 1) {
         for (let i = 0; i < botones.length; i++) {
             botones[i].style.display = "none";
         }
     }
-    const inputFactura= document.getElementById('totalFacturaInput');
-    inputFactura.value=parseFloat(total.toFixed(2));
 
+    // Actualizar el valor del input oculto de totalFactura con el total a pagar
+    const inputFactura = document.getElementById('totalFacturaInput');
+    inputFactura.value = parseFloat(total.toFixed(2));
 </script>
