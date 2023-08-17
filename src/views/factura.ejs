@@ -11,9 +11,10 @@
     <input type="hidden" id="idStatus"  value="<%= datos.idStatus %>">
     <h1 class="display-5 fw-bold text-body-emphasis">Factura Nr: <%= idFactura.id %></h1>
     <div class="col-lg-6 mx-auto">
-        <!--<p class="lead mb-4">Tu visión en manos expertas: Claridad y estilo a través de nuestras lentes. En Optica Naida , cuidamos de tu mirada con la más alta calidad y tendencias vanguardistas. Descubre una nueva perspectiva y atrévete a brillar con nuestros servicios personalizados.-->
-        <br> ¡Vive la experiencia visual que mereces!</p>
+        <!-- Información sobre la visión y los servicios -->
+        <p class="lead mb-4">Tu visión en manos expertas: Claridad y estilo a través de nuestras lentes. En Optica Naida, cuidamos de tu mirada con la más alta calidad y tendencias vanguardistas. Descubre una nueva perspectiva y atrévete a brillar con nuestros servicios personalizados. ¡Vive la experiencia visual que mereces!</p>
 
+        <!-- Botones para agregar elementos a la factura -->
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarArmazon">
                 Agregar Armazon
@@ -21,13 +22,11 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarLunas">Agregar
                 Lunas
             </button>
-
         </div>
     </div>
 </div>
 
-
-
+<!-- Modal para agregar armazones a la factura -->
 <div class="modal fade" id="agregarArmazon" tabindex="-1" aria-labelledby="agregarArmazon" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -36,6 +35,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Formulario para agregar armazones -->
                 <form action="/agregarArmazon" class="needs-validation" method="post">
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Marca Armazon</label>
@@ -44,7 +44,6 @@
                             <% for (const marca of marcas) { %>
                                 <option value="<%= marca.idMarca %>"><%= marca.nameMarca %></option>
                             <% } %>
-
                         </select>
                     </div>
                     <div class="mb-3">
@@ -58,14 +57,14 @@
                         <input type="hidden" name="idFactura" value="<%= idFactura.id %>"/>
                     </div>
 
-
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Modal para agregar lunas a la factura -->
 <div class="modal fade" id="agregarLunas" tabindex="-1" aria-labelledby="agregarLunas" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -74,6 +73,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Formulario para agregar lunas -->
                 <form action="/agregarLuna" class="needs-validation" method="post">
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Tipo de Luna</label>
@@ -88,14 +88,16 @@
                         <input type="hidden" name="idFactura" value="<%= idFactura.id %>"/>
                     </div>
 
-
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal para Cerrar Factura -->
 <div class="modal fade" id="cerrarFactura" tabindex="-1" aria-labelledby="cerrarFactura" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -104,18 +106,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <!-- Mensaje de advertencia -->
                 <div class="mb-3">
                     <p style="text-align: center">¿Está seguro de cerrar la presente factura? Tenga en cuenta que una
                         vez haga clic en 'Aceptar', no podrá editar los valores ingresados. Confirme su elección y
                         asegúrese de revisar cuidadosamente la información antes de continuar.</p>
                 </div>
+                <!-- Formulario para cerrar la factura -->
                 <form action="/cerrarFactura" method="post" novalidate>
                     <div class="mb-3">
-
+                        <!-- Campo oculto para el ID de la factura -->
                         <input type="hidden" name="idFactura" value="<%= idFactura.id %>"/>
+                        <!-- Campo oculto para el total de la factura -->
                         <input id="totalFactura" type="hidden" name="totalFactura" value="">
                     </div>
                     <div class="mb-3" style="margin: 0 auto; text-align: center">
+                        <!-- Botón para cerrar la factura -->
                         <button type="submit" class="btn btn-primary">Cerrar</button>
                     </div>
                 </form>
@@ -123,38 +129,43 @@
         </div>
     </div>
 </div>
+
+<!-- Sección de Datos del Cliente -->
 <div class="datos">
     <div class="d-grid d-sm-flex justify-content-sm-center">
         <h3>Datos del cliente</h3>
-
     </div>
     <div class="d-grid d-sm-flex justify-content-sm-center">
+        <!-- Muestra la fecha de la factura -->
         <h3><%= datos.Fecha %></h3>
-
     </div>
+    <!-- Formulario para mostrar los datos del cliente -->
     <form id="datosCliente">
-
         <div class="mb-3">
             <label for="nameCliente" class="form-label">Nombre</label>
+            <!-- Muestra el nombre del cliente -->
             <input type="text" class="form-control" value="<%= datos.nombreCliente %>" id="nameCliente" readonly>
         </div>
         <div class="mb-3">
             <label for="apellidoCliente" class="form-label">Apellido</label>
+            <!-- Muestra el apellido del cliente -->
             <input type="text" class="form-control" value="<%= datos.apellidoCliente %>" id="apellidoCliente" readonly>
         </div>
         <div class="mb-3">
             <label for="cedulaCliente" class="form-label">Cedula/RUC</label>
+            <!-- Muestra la cédula/RUC del cliente -->
             <input type="number" class="form-control" value="0<%= datos.cedulaCliente %>" id="cedulaCliente" readonly>
         </div>
         <div class="mb-3">
             <label for="telefonoCliente" class="form-label">Telefono</label>
-            <input type="number" class="form-control" value="0<%= datos.telefonoCliente %>" id="telefonoCliente"
-                   readonly>
+            <!-- Muestra el teléfono del cliente -->
+            <input type="number" class="form-control" value="0<%= datos.telefonoCliente %>" id="telefonoCliente" readonly>
         </div>
-
     </form>
 </div>
 
+
+<!-- Tabla para mostrar los detalles de los ítems en la factura -->
 <table class="table" id="tablaPrecios">
     <thead>
     <tr>
@@ -167,12 +178,8 @@
     </tr>
     </thead>
     <tbody>
-
     <% if (armazon) { %>
-        <!-- Si la data existe, muestra este div -->
-
-
-
+        <!-- Si existen datos de armazones, mostrar cada uno -->
         <% armazon.forEach(function(armazon) { %>
             <tr>
                 <td><%= armazon.name %></td>
@@ -181,31 +188,34 @@
                 <td><%= armazon.talla %></td>
                 <td class="precio">$<%= armazon.precioArmazon %></td>
                 <td>
+                    <!-- Formulario para eliminar un ítem de armazón -->
                     <form action="/deleteItemArmazon" method="post">
+                        <!-- Campo oculto para el ID del armazón -->
                         <input type="hidden" name="idArmazon" value="<%= armazon.idArmazon %>">
+                        <!-- Campo oculto para el ID de la factura -->
                         <input type="hidden" name="idFactura" value="<%= idFactura.id %>">
+                        <!-- Botón para eliminar el ítem de armazón -->
                         <button type="submit" class="btn btn-danger">
+                            <!-- Icono de basura para eliminar -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                                 <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
                             </svg>
                         </button>
-
                     </form>
-
                 </td>
             </tr>
         <% }); %>
-
-    <% }else { %>
-        <!-- Si la data no existe, muestra este div -->
-        <td colspan="5">Larry the Bird</td>
-
+    <% } else { %>
+        <!-- Si no existen datos de armazones, mostrar mensaje -->
+        <tr>
+            <td colspan="5">No hay datos de armazones</td>
+        </tr>
     <% } %>
 
     <% if (luna) { %>
-        <!-- Si la data existe, muestra este div -->
+        <!-- Si existen datos de lentes de contacto, mostrar cada uno -->
         <% luna.forEach(function(luna) { %>
             <tr>
                 <td><%= luna.name %></td>
@@ -214,35 +224,39 @@
                 <td>--</td>
                 <td class="precio">$<%= luna.precio %></td>
                 <td>
+                    <!-- Formulario para eliminar un ítem de lentes de contacto -->
                     <form action="/deleteItemLuna" method="post">
+                        <!-- Campo oculto para el ID de la luna -->
                         <input type="hidden" name="idLuna" value="<%= luna.idLuna %>">
+                        <!-- Campo oculto para el ID de la factura -->
                         <input type="hidden" name="idFactura" value="<%= idFactura.id %>">
+                        <!-- Botón para eliminar el ítem de lentes de contacto -->
                         <button type="submit" class="btn btn-danger">
+                            <!-- Icono de basura para eliminar -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5
-a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
                             </svg>
                         </button>
-
                     </form>
-
                 </td>
             </tr>
         <% }); %>
     <% } else { %>
-        <!-- Si la data no existe, muestra este div -->
-        <div>Contenido cuando la data no existe</div>
+        <!-- Si no existen datos de lentes de contacto, mostrar mensaje -->
+        <tr>
+            <td colspan="5">No hay datos de lentes de contacto</td>
+        </tr>
     <% } %>
 
+    <!-- Filas para mostrar el subtotal, IVA y total a pagar -->
     <tr>
         <td></td>
         <td></td>
         <td></td>
         <td>Subtotal</td>
         <td id="subtotal"></td>
-
     </tr>
     <tr>
         <td></td>
@@ -250,7 +264,6 @@ a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1
         <td></td>
         <td>IVA 12%</td>
         <td id="masIva"></td>
-
     </tr>
     <tr>
         <td></td>
@@ -258,26 +271,24 @@ a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1
         <td></td>
         <td>Total a Pagar</td>
         <td id="totalPagar"></td>
-
     </tr>
-
     </tbody>
 </table>
+<!-- Botón para cerrar la factura -->
 <div class="container m-5 p-6" style="text-align: center">
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cerrarFactura">Cerrar
         Factura
     </button>
 </div>
 
-
+<!-- Incluir el pie de página -->
 <%- include('partials/footer.ejs') -%>
 
-
+<!-- Estilos CSS personalizados -->
 <style>
     table {
         width: 80% !important;
         margin: 0 auto;
-
     }
 
     #datosCliente {
@@ -286,65 +297,50 @@ a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1
     }
 </style>
 
+<!-- Script JavaScript -->
 <script>
-    window.onload= function (){
-
-
-
+    // Ejecutar cuando la página se haya cargado
+    window.onload = function () {
         const precios = document.querySelectorAll('.precio');
         const subtotal = document.getElementById('subtotal');
         const subtotalMasIva = document.getElementById('masIva');
         const totalApagar = document.getElementById('totalPagar');
         const inputTotalFactura = document.getElementById('totalFactura');
+
         let sumaSubtotal = 0;
         let subTotalIva = 0;
         let totalpagar = 0;
 
-
+        // Calcular el subtotal, IVA y total a pagar
         for (let i = 0; i < precios.length; i++) {
             let precioTexto = precios[i].innerHTML;
             let precioSinDolar = precioTexto.replace('$', ''); // Eliminar el carácter "$"
             let precioNumero = parseFloat(precioSinDolar); // Convertir el valor a número
             sumaSubtotal += precioNumero; // Sumar al total
-
         }
+
         subtotal.innerText = "$" + sumaSubtotal.toFixed(2);
-        //console.log("Suma subTotal"+ sumaSubtotal);
         subTotalIvaDecimales = sumaSubtotal * 0.12;
         subTotalIva = subTotalIvaDecimales.toFixed(2);
         subtotalMasIva.innerText = "$" + subTotalIva;
+
         const sub = parseFloat(sumaSubtotal)
         const iva = parseFloat(subTotalIva)
-        //console.log(sub+iva)
         totalpagar = sub + iva;
         totalApagar.innerText = "$" + totalpagar.toFixed(2);
-        totalpagar=parseFloat(totalpagar.toFixed(2))
-        //console.log(totalpagar)
+        totalpagar = parseFloat(totalpagar.toFixed(2))
         inputTotalFactura.value = parseFloat(totalpagar);
 
+        // Obtener el valor del estado de la factura
+        const status = document.getElementById('idStatus');
+        const Status = parseInt(status.value);
 
-        //console.log(sumaSubtotal); // La suma total de los valores sin el carácter "$"
-        const status= document.getElementById('idStatus');
-        const Status= parseInt(status.value)
-        //console.log(Status);
-
-
-
-        const botonones= document.querySelectorAll('.btn');
-        //console.log(botonones);
-        if (Status == 2){
+        // Ocultar botones si el estado es 2
+        const botonones = document.querySelectorAll('.btn');
+        if (Status == 2) {
             for (let i = 0; i < botonones.length; i++) {
                 botonones[i].style.display = "none";
             }
         }
-
-
-
-
-
-
-
     }
-
-
 </script>

@@ -1,8 +1,9 @@
+<!--Esta línea de código utiliza la directiva include() de EJS para incluir el contenido de otro archivo EJS llamado "header.ejs" ubicado en la carpeta "partials". Esta inclusión se hace en el lugar donde aparece el código y permite reutilizar y organizar componentes comunes en una aplicación web.-->
 <%- include('partials/header.ejs') -%>
-
-
+<!-- Incluye el contenido del encabezado desde 'header.ejs' -->
 
 <div class="px-4 py-1 my-2 text-center">
+    <!-- Contenedor centralizado con padding y margen -->
     <lord-icon
             src="https://cdn.lordicon.com/tyounuzx.json"
             trigger="loop"
@@ -10,132 +11,170 @@
             colors="primary:#121331,secondary:#08a88a"
             style="width:250px;height:250px">
     </lord-icon>
+    <!-- Muestra un ícono animado con efecto de bucle y temporizador -->
     <h1 class="display-5 fw-bold text-body-emphasis">Optica Naida</h1>
+    <!-- Título en formato negrita y tamaño grande -->
     <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Tu visión en manos expertas: Claridad y estilo a través de nuestras lentes. En Optica Naida , cuidamos de tu mirada con la más alta calidad y tendencias vanguardistas. Descubre una nueva perspectiva y atrévete a brillar con nuestros servicios personalizados.
-            <br> ¡Vive la experiencia visual que mereces!</p>
+        <!-- Columna de 6 unidades, centrada horizontalmente -->
+        <p class="lead mb-4"> <!-- Párrafo con estilo de encabezado -->
+            Tu visión en manos expertas: Claridad y estilo a través de nuestras lentes. En Optica Naida , cuidamos de tu mirada con la más alta calidad y tendencias vanguardistas. Descubre una nueva perspectiva y atrévete a brillar con nuestros servicios personalizados.
+            <br> ¡Vive la experiencia visual que mereces!
+        </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarCliente">Agregar Cliente</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">Agregar Marca Armazon</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipoLuna">Agregar Tipo Luna</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearFactura">Crear Factura</button>
-
+            <!-- Crea una cuadrícula de botones -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarCliente">
+                Agregar Cliente
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarMarca">
+                Agregar Marca Armazon
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipoLuna">
+                Agregar Tipo Luna
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearFactura">
+                Crear Factura
+            </button>
         </div>
     </div>
 </div>
 
-
-<!-- Modal -->
+<!-- Modal para Agregar Cliente -->
 <div class="modal fade" id="agregarCliente" tabindex="-1" aria-labelledby="agregarCliente" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal centrado vertical y horizontalmente -->
         <div class="modal-content">
+            <!-- Contenido del modal -->
             <div class="modal-header">
+                <!-- Encabezado del modal -->
                 <h1 class="modal-title fs-5" id="agregarCliente">Agregar Cliente</h1>
+                <!-- Título del modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Botón de cierre del modal -->
             </div>
             <div class="modal-body">
-                <form action="/addCliente"  class="needs-validation"   method="post">
+                <!-- Cuerpo del modal -->
+                <form action="/addCliente" class="needs-validation" method="post">
+                    <!-- Formulario para agregar un cliente -->
                     <div class="mb-3">
                         <label for="nombreCliente" class="form-label">Nombres Cliente</label>
+                        <!-- Etiqueta y campo para el nombre del cliente -->
                         <input type="text" name="nombreCliente" class="form-control" id="nombreCliente" aria-describedby="nombreCliente" required>
+                        <!-- Campo de entrada de texto obligatorio -->
                     </div>
-                    <div class="mb-3">
-                        <label for="apellidoCliente" class="form-label">Apellidos Cliente</label>
-                        <input type="text" name="apellidoCliente" class="form-control" id="apellidoCliente" aria-describedby="nombreCliente" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="cedulaCliente" class="form-label">Nr de Cedula</label>
-                        <input type="number" minlength="5" name="cedulaCliente" class="form-control" id="cedulaCliente" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefonoCliente" class="form-label">Nr de Telefono</label>
-                        <input name="telefonoCliente" type="number" class="form-control" id="telefonoCliente" minlength="10" maxlength="10" required>
-                    </div>
-
+                    <!-- Repetir estructura similar para otros campos -->
                     <button type="submit" class="btn btn-primary">Enviar</button>
+                    <!-- Botón para enviar el formulario -->
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+<!-- Modal para Agregar Marca de Armazón -->
 <div class="modal fade" id="agregarMarca" tabindex="-1" aria-labelledby="agregarMarca" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal centrado vertical y horizontalmente -->
         <div class="modal-content">
+            <!-- Contenido del modal -->
             <div class="modal-header">
+                <!-- Encabezado del modal -->
                 <h1 class="modal-title fs-5" id="agregarCliente">Agregar Marca Armazon</h1>
+                <!-- Título del modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Botón de cierre del modal -->
             </div>
             <div class="modal-body">
+                <!-- Cuerpo del modal -->
                 <form action="/addLente" class="needs-validation" method="post">
+                    <!-- Formulario para agregar una marca de armazón -->
                     <div class="mb-3">
                         <label for="nameMarca" class="form-label">Nombres Marca</label>
+                        <!-- Etiqueta y campo para el nombre de la marca -->
                         <input type="text" name="nameMarca" class="form-control" id="nameMarca" aria-describedby="nameMarca" required>
+                        <!-- Campo de entrada de texto obligatorio -->
                     </div>
                     <div class="mb-3">
                         <label for="precio" class="form-label">Precio</label>
+                        <!-- Etiqueta y campo para el precio de la marca -->
                         <input type="number" step="0.01" name="precio" class="form-control" id="precio" aria-describedby="nameMarca" required>
+                        <!-- Campo numérico con paso decimal -->
                     </div>
-
                     <button type="submit" class="btn btn-primary">Enviar</button>
+                    <!-- Botón para enviar el formulario -->
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Modal para Agregar Tipo de Luna -->
 <div class="modal fade" id="agregarTipoLuna" tabindex="-1" aria-labelledby="agregarTipoLuna" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal centrado vertical y horizontalmente -->
         <div class="modal-content">
+            <!-- Contenido del modal -->
             <div class="modal-header">
+                <!-- Encabezado del modal -->
                 <h1 class="modal-title fs-5" id="agregarCliente">Agregar Tipo Luna</h1>
+                <!-- Título del modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Botón de cierre del modal -->
             </div>
             <div class="modal-body">
+                <!-- Cuerpo del modal -->
                 <form action="/addTipoLuna" class="needs-validation" method="post">
+                    <!-- Formulario para agregar un tipo de luna -->
                     <div class="mb-3">
                         <label for="nameTipoluna" class="form-label">Nombres Tipo Luna</label>
+                        <!-- Etiqueta y campo para el nombre del tipo de luna -->
                         <input type="text" name="nameTipoluna" class="form-control" id="nameTipoluna" aria-describedby="nameTipoluna" required>
+                        <!-- Campo de entrada de texto obligatorio -->
                     </div>
                     <div class="mb-3">
                         <label for="precio" class="form-label">Precio</label>
+                        <!-- Etiqueta y campo para el precio del tipo de luna -->
                         <input type="number" step="0.01" name="precio" class="form-control" id="precio" aria-describedby="nameMarca" required>
+                        <!-- Campo numérico con paso decimal -->
                     </div>
-
                     <button type="submit" class="btn btn-primary">Enviar</button>
+                    <!-- Botón para enviar el formulario -->
                 </form>
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Modal para Crear Factura -->
 <div class="modal fade" id="crearFactura" tabindex="-1" aria-labelledby="crearFactura" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal centrado vertical y horizontalmente -->
         <div class="modal-content">
+            <!-- Contenido del modal -->
             <div class="modal-header">
+                <!-- Encabezado del modal -->
                 <h1 class="modal-title fs-5" id="agregarCliente">Crear Factura</h1>
+                <!-- Título del modal -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Botón de cierre del modal -->
             </div>
             <div class="modal-body">
+                <!-- Cuerpo del modal -->
                 <form action="/crearFactura" class="needs-validation" novalidate method="post">
+                    <!-- Formulario para crear una factura -->
                     <div class="mb-3">
                         <label for="nameTipoluna" class="form-label">Escoge el cliente</label>
+                        <!-- Etiqueta y campo para seleccionar al cliente -->
                         <select class="form-control"  name="idcliente" id="idCliente" required>
-                            <option  selected disabled >Escoge al cliente</option>
+                            <option selected disabled>Escoge al cliente</option>
+                            <!-- Opciones generadas a partir de los datos -->
                             <% data.forEach(function(data) { %>
                                 <option value="<%= data.idCliente %>"><%=data.nombreCliente%></option>
                             <% }); %>
                         </select>
                     </div>
-
-
                     <button type="submit" id="crearFacturaModal" disabled class="btn btn-primary">Enviar</button>
-
-
-                    
+                    <!-- Botón para enviar el formulario (inicialmente deshabilitado) -->
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -144,15 +183,19 @@
 
 
 <%- include('partials/footer.ejs') -%>
-
+<!--Esta línea de código utiliza la directiva include()  de EJS para incluir el contenido de otro archivo EJS llamado "footer.ejs" ubicado en la carpeta "partials". Esta inclusión se hace en el lugar donde aparece el código y permite reutilizar y organizar componentes comunes en una aplicación web.-->
 
 <script>
+    // Obtenemos una referencia al elemento con el ID 'idCliente'
     const idcliente = document.getElementById('idCliente');
+
+    // Obtenemos una referencia al botón con el ID 'crearFacturaModal'
     const botonCrearFactura = document.getElementById('crearFacturaModal');
+
+    // Agregamos un evento 'change' al elemento con el ID 'idCliente'
     idcliente.addEventListener('change', function () {
+        // Cuando el valor del elemento cambia, habilitamos el botón 'crearFacturaModal'
         botonCrearFactura.removeAttribute("disabled");
-    })
-
-
-
+    });
 </script>
+

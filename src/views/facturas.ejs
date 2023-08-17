@@ -1,6 +1,10 @@
+<!-- Incluir el encabezado -->
 <%- include('partials/header.ejs') -%>
 
+<!-- Título de la página -->
 <h1 style="text-align: center; padding-top: 15px">Listar Facturas</h1>
+
+<!-- Formulario para buscar facturas por fecha -->
 <form action="/buscarFacturas" method="post" style="margin: 0 auto">
     <div class="container" style="display: flex; text-align: center">
         <div class="gap">
@@ -15,9 +19,7 @@
     </div>
 </form>
 
-
-
-
+<!-- Tabla de facturas -->
 <table class="table" id="tablaFacturas">
     <thead>
     <tr>
@@ -29,12 +31,8 @@
     </tr>
     </thead>
     <tbody>
-
     <% if (listFacturas) { %>
         <!-- Si la data existe, muestra este div -->
-
-
-
         <% listFacturas.forEach(function(listFacturas) { %>
             <tr>
                 <td><%= listFacturas.idFactura %></td>
@@ -45,27 +43,26 @@
                     <form action="/deleteItemArmazon" method="post">
                         <input type="hidden" name="idFactura" value="<%= listFacturas.ididFactura %>">
                         <a href="/factura/<%= listFacturas.idFactura %>" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye " viewBox="0 0 16 16">
-                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye " viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                </svg>
                             </svg>
                         </a>
-
                     </form>
-
                 </td>
             </tr>
         <% }); %>
-
-    <% }else { %>
+    <% } else { %>
         <!-- Si la data no existe, muestra este div -->
         <td colspan="5">No existen datos</td>
-
     <% } %>
 
+    <!-- Fila de totales -->
     <tr style="text-align: center">
         <td></td>
-        <td >Totales</td>
+        <td>Totales</td>
         <td></td>
         <td></td>
     </tr>
@@ -74,19 +71,15 @@
         <td>Cantidad Lunas: <%= cantidadLunas.cantidadLunas %></td>
         <td>Cantidad de Facturas: <%= cantidad.cantidad %></td>
     </tr>
-
-
     </tbody>
 </table>
 
-
-
-
-
+<!-- Incluir el pie de página -->
 <%- include('partials/footer.ejs') -%>
 
+<!-- Estilos CSS personalizados -->
 <style>
-    #tablaFacturas{
+    #tablaFacturas {
         width: 80% !important;
         margin: 0 auto;
     }
